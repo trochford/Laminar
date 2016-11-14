@@ -81,11 +81,9 @@ $PSScriptRoot = Split-Path -Parent -Path $MyInvocation.MyCommand.Definition
 
 # The top, virtualbox and vagrant Salt sls files can be found here
 $fileRoot = "$PSScriptRoot/windows-salt"
-$fileRoot = "c:/Laminar/windows-salt"
 
 # The minion configuration file is here
 $confRoot = "$PSScriptRoot/windows-salt/conf"
-$confRoot = "c:/Laminar/windows-salt/conf"
 
 # Salt assumed to be installed in c:\salt
 Set-Location "c:\salt"
@@ -115,6 +113,6 @@ Set-Location "$PSScriptRoot/vagrantShare"
 Write-Host ""
 Write-Host "Invoking ""vagrant up"" command with vagrantFile ensuring Salt is installed on Linux"
 #Invoke-Expression -Command "vagrant up" - doesn't work because the %path% varibles have not been refreshed
-Invoke-Expression -Command "C:\HashiCorp\Vagrant\bin\vagrant.exe up" 
+Invoke-Expression -Command "C:\HashiCorp\Vagrant\bin\vagrant.exe up -provision" 
 
 
