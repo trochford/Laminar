@@ -16,7 +16,7 @@ will provision Docker in that image as well. Both Salt installations will be mas
 #### Usage: 
 
 1. *Open a Powershell in Windows run as administrator*
-2. *Enter:* Set-ExecutionProfile Unrestricted
+2. *Enter:* Set-ExecutionPolicy Unrestricted
 3. *Enter:* cd \Laminar
 4. *Enter:* ./boot.ps1
 
