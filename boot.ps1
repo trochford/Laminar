@@ -113,6 +113,6 @@ Set-Location "$PSScriptRoot/vagrantShare"
 Write-Host ""
 Write-Host "Invoking ""vagrant up"" command with vagrantFile ensuring Salt is installed on Linux"
 #Invoke-Expression -Command "vagrant up" - doesn't work because the %path% varibles have not been refreshed
-Invoke-Expression -Command "C:\HashiCorp\Vagrant\bin\vagrant.exe up -provision" 
+Invoke-Expression -Command "C:\HashiCorp\Vagrant\bin\vagrant.exe up" 
 
 
