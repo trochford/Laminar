@@ -34,8 +34,15 @@ The Ubuntu image loaded will be Trusty64 from Hashicorp provided without a Deskt
 
 The vagrant user credentials are the defaults - User: vagrant ; Password: vagrant
 
-The VirtualBox console GUI will be initiated during the running of the boot script.  Upon completion of the boot script, Docker can be tested with the Docker hello-world image:
+The VirtualBox console GUI will be initiated during the running of the boot script.  A container running bash in Ubuntu will be running in Docker. Upon completion of the boot script, Docker can be tested with the Docker hello-world image:
 * *Enter:* sudo docker run hello-world
+or 
+* *Enter"* sudo docker attach Ubunto 
+
+There will be two Vagrant providers running: one for Docker and one for the Ubuntu host.  To destroy them, two Vagrant Destroy commands will be needed:
+* *At the Window prompt, enter:* vagrant destroy *- will tear down the Docker provider "myService"*
+* *and then, enter:* vagrant global-status *- to find the ID of the VirtualBox provider "dockerhost"*
+* *and then, enter:* vagrant destroy {dockerhost ID} 
 
 Tested on Windows 7 and Windows 10.
 
