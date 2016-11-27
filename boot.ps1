@@ -8,6 +8,8 @@ Write-Host "~~ and based on Winrepo definitions, VirtualBox and Vagrant will be 
 Write-Host "~~ bring up VirtualBox with a Ubuntu image.  Salt will be installed in that image and then Salt ~~"
 Write-Host "~~ will provision Docker in that image as well. Both Salt installations will be masterless      ~~"
 Write-Host "~~ minions.                                                                                     ~~"
+Write-Host "~~ A "lite" version of Kubernetes can also be installed - Minikube.  It requires the Kubernetes ~~"
+Write-Host "~~ command line utility as well - Kubectl. Laminar boot will as if you want them installed.     ~~"
 Write-Host "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 Write-Host "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 Write-Host "                                                                                                  "
@@ -34,8 +36,10 @@ $source = 'C:\source'
 If (!(Test-Path -Path $source -PathType Container)) {New-Item -Path $source -ItemType Directory | Out-Null} 
 
 $packages = @( 
-@{title='Salt Minion';url='https://repo.saltstack.com/windows/Salt-Minion-2016.3.4-AMD64-Setup.exe';Arguments=' /s /start-service=0';Destination=$source}, 
-@{title='Git for Windows';url='https://github.com/git-for-windows/git/releases/download/v2.10.2.windows.1/Git-2.10.2-64-bit.exe';Arguments=' /VERYSILENT /SUPPRESSMSGBOXES /NORESTART /SP-';Destination=$source} 
+@{title='Salt Minion';url='https://repo.saltstack.com/windows/Salt-Minion-2016.3.4-AMD64-Setup.exe';Arguments=' /s /start-service=0';Destination=$source;phase=1}, 
+@{title='Git for Windows';url='https://github.com/git-for-windows/git/releases/download/v2.10.2.windows.1/Git-2.10.2-64-bit.exe';Arguments=' /VERYSILENT /SUPPRESSMSGBOXES /NORESTART /SP-';Destination=$source;phase=1}, 
+@{title='Minikube';url='https://storage.googleapis.com/minikube/releases/v0.12.2/minikube-windows-amd64.exe';Arguments=' start --vm-driver="virtualbox" --show-libmachine-logs --alsologtostderr';Destination=$source;phase=2},
+@{title='Kubectl - Kubernetes Command Line Interface';url='http://storage.googleapis.com/kubernetes-release/release/v1.4.0/bin/windows/amd64/kubectl.exe';Arguments=' cluster-info';Destination=$source;phase=2}
 ) 
 
 foreach ($package in $packages) { 
@@ -66,7 +70,7 @@ foreach ($package in $packages) {
  
 #Once we've downloaded all our files lets install them. 
 foreach ($package in $packages) { 
-    if ( $package.selected ) {
+    if ( $package.selected -and ( $package.phase -eq 1 ) ) {
         $packageName = $package.title 
         $fileName = [System.IO.Path]::GetFileName($package.url) 
         $destinationPath = $package.Destination + "\" + $fileName 
@@ -115,4 +119,15 @@ Write-Host "Invoking ""vagrant up"" command with vagrantFile ensuring Salt is in
 #Invoke-Expression -Command "vagrant up" - doesn't work because the %path% varibles have not been refreshed
 Invoke-Expression -Command "C:\HashiCorp\Vagrant\bin\vagrant.exe up" 
 
+
+foreach ($package in $packages) { 
+    if ( $package.selected -and ( $package.phase -eq 2 ) ) {
+        $packageName = $package.title 
+        $fileName = [System.IO.Path]::GetFileName($package.url) 
+        $destinationPath = $package.Destination + "\" + $fileName 
+        $Arguments = $package.Arguments 
+        Write-Output "Installing $packageName" 
+        Invoke-Expression -Command "$destinationPath $Arguments | Write-Output"
+    }
+}
 
