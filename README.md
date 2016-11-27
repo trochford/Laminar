@@ -10,6 +10,9 @@ and based on Winrepo definitions, VirtualBox and Vagrant will be installed on Wi
 bring up VirtualBox with a Ubuntu image.  Salt will be installed in that Ubuntu image and then Salt and Git
 will provision Docker in that image as well. Both Salt installations will be masterless minions.
 
+A "lite" version of Kubernetes can also be installed - Minikube.  It requires the Kubernetes
+command line utility as well - Kubectl. Laminar boot.ps1 will ask if you want them installed.
+
 #### Download
 * Clone or download and extract project into c:\Laminar
 
