@@ -36,10 +36,11 @@ $source = 'C:\source'
 If (!(Test-Path -Path $source -PathType Container)) {New-Item -Path $source -ItemType Directory | Out-Null} 
 
 $packages = @( 
-@{title='Salt Minion';url='https://repo.saltstack.com/windows/Salt-Minion-2016.3.4-AMD64-Setup.exe';Arguments=' /s /start-service=0';Destination=$source;phase=1}, 
-@{title='Git for Windows';url='https://github.com/git-for-windows/git/releases/download/v2.10.2.windows.1/Git-2.10.2-64-bit.exe';Arguments=' /VERYSILENT /SUPPRESSMSGBOXES /NORESTART /SP-';Destination=$source;phase=1}, 
-@{title='Minikube';url='https://storage.googleapis.com/minikube/releases/v0.12.2/minikube-windows-amd64.exe';Arguments=' start --vm-driver="virtualbox" --show-libmachine-logs --alsologtostderr';Destination=$source;phase=2},
-@{title='Kubectl - Kubernetes Command Line Interface';url='http://storage.googleapis.com/kubernetes-release/release/v1.4.0/bin/windows/amd64/kubectl.exe';Arguments=' cluster-info';Destination=$source;phase=2}
+@{title='Salt Minion';url='https://repo.saltstack.com/windows/Salt-Minion-2016.11.0-x86-Setup.exe';Arguments=' /s /start-service=0';Destination=$source;phase=1}, 
+@{title='Git for Windows';url='https://github.com/git-for-windows/git/releases/download/v2.10.2.windows.1/Git-2.10.2-64-bit.exe';Arguments=' /VERYSILENT /SUPPRESSMSGBOXES /NORESTART /SP-';Destination=$source;phase=1} 
+#@{title='Git for Windows';url='https://github.com/git-for-windows/git/releases/download/v2.10.2.windows.1/Git-2.10.2-64-bit.exe';Arguments=' /VERYSILENT /SUPPRESSMSGBOXES /NORESTART /SP-';Destination=$source;phase=1}, 
+#@{title='Minikube';url='https://storage.googleapis.com/minikube/releases/v0.12.2/minikube-windows-amd64.exe';Arguments=' start --vm-driver="virtualbox" --show-libmachine-logs --alsologtostderr';Destination=$source;phase=2},
+#@{title='Kubectl - Kubernetes Command Line Interface';url='http://storage.googleapis.com/kubernetes-release/release/v1.4.0/bin/windows/amd64/kubectl.exe';Arguments=' cluster-info';Destination=$source;phase=2}
 ) 
 
 foreach ($package in $packages) { 
@@ -109,25 +110,28 @@ Invoke-Expression -Command ".\salt-call.bat --config-dir=$confRoot pkg.refresh_d
 
 Write-Host ""
 Write-Host "Executing Salt states to ensure VirtualBox and Vagrant are installed on Windows"
-Invoke-Expression -Command ".\salt-call.bat --config-dir=$confRoot state.highstate"
+echo ".\salt-call.bat --config-dir=$confRoot --metadata state.highstate pillar=`"{'LAMINAR_DIR': '$PSScriptRoot'}`" -l debug"
+Invoke-Expression -Command ".\salt-call.bat --config-dir=$confRoot --metadata state.highstate pillar=`"{'LAMINAR_DIR': '$PSScriptRoot'}`" -l all"
 
 # Pop back to the Laminar sub-directory where the vagrantFile can be found
-Set-Location "$PSScriptRoot/vagrantShare"
+#Set-Location "$PSScriptRoot/vagrantShare"
 
-Write-Host ""
-Write-Host "Invoking ""vagrant up"" command with vagrantFile ensuring Salt is installed on Linux"
-#Invoke-Expression -Command "vagrant up" - doesn't work because the %path% varibles have not been refreshed
-Invoke-Expression -Command "C:\HashiCorp\Vagrant\bin\vagrant.exe up" 
+#Write-Host ""
+#Write-Host "Invoking ""vagrant up"" command with vagrantFile ensuring Salt is installed on Linux"
+##Invoke-Expression -Command "vagrant up" - doesn't work because the %path% varibles have not been refreshed
+#Invoke-Expression -Command "C:\HashiCorp\Vagrant\bin\vagrant.exe up" 
 
 
-foreach ($package in $packages) { 
-    if ( $package.selected -and ( $package.phase -eq 2 ) ) {
-        $packageName = $package.title 
-        $fileName = [System.IO.Path]::GetFileName($package.url) 
-        $destinationPath = $package.Destination + "\" + $fileName 
-        $Arguments = $package.Arguments 
-        Write-Output "Installing $packageName" 
-        Invoke-Expression -Command "$destinationPath $Arguments | Write-Output"
-    }
-}
+#foreach ($package in $packages) { 
+#    if ( $package.selected -and ( $package.phase -eq 2 ) ) {
+#        $packageName = $package.title 
+#        $fileName = [System.IO.Path]::GetFileName($package.url) 
+#        $destinationPath = $package.Destination + "\" + $fileName 
+#        $Arguments = $package.Arguments 
+#        Write-Output "Installing $packageName" 
+#        Invoke-Expression -Command "$destinationPath $Arguments | Write-Output"
+#    }
+#}
 
+
+Set-Location "$PSScriptRoot"
