@@ -3,5 +3,5 @@ vagrant:
  pkg:
   - installed
  cmd.run:
-  - name: '{{ VAGRANT_DIR }}\bin\vagrant.exe up'
-  - cwd: '{{ pillar['LAMINAR_DIR'] }}\vagrantShare'
+  - name: '{{ VAGRANT_DIR }}\bin\vagrant up --debug'
+  - cwd: '{{ pillar['LAMINAR_DIR'] }}\vagrantShare\myService'

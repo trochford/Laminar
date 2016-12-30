@@ -1,5 +1,5 @@
-#{% set PROGRAM_FILES = "%ProgramFiles%" %}
-{% set PROGRAM_FILES = "C:\Program Files" %}
+{% set PROGRAM_FILES =  pillar['PROGRAM_FILES'] %}
+{% set LAMINAR_DIR =  pillar['LAMINAR_DIR'] %}
   {% for version_mk, version_kc in [('v0.12.2', 'v1.4.0')] %}
     minikube_dir:
       file.directory:
@@ -24,4 +24,12 @@
         - name: salt-minion
         - watch:
           - win_path: minikube_path
+    minikube-up:
+      cmd.script:
+        - name: 'genMinikubeUp.ps1'
+        - source: '{{ LAMINAR_DIR }}/windows-salt/genMinikubeUp.ps1'
+        - cwd: '{{ PROGRAM_FILES }}/minikube'
+        - shell: powershell
+        - env: 
+          - ExecutionPolicy: ByPass
   {% endfor %}

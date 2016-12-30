@@ -1,0 +1,30 @@
+ENV['VAGRANT_DEFAULT_PROVIDER'] = 'docker'
+DOCKER_HOST_NAME = "vagrant-dockerhost"
+# DOCKER_HOST_NAME = "dockerhost"
+DOCKER_HOST_VAGRANTFILE = "../Vagrantfile"
+ 
+Vagrant.configure("2") do |config|
+ 
+  config.vm.synced_folder "../.", "/vagrantShare"
+  config.vm.boot_timeout = 300
+  config.vm.box_check_update = false
+  config.vm.define "myService" do |a|
+    a.vm.provider "docker" do |d|
+      d.build_dir = "."
+      d.build_args = ["-t=ubuntu"] # labels must be all lowercase
+      d.name = "Ubuntu"
+      d.remains_running = true
+#      d.has_ssh = true 
+      d.vagrant_machine = "#{DOCKER_HOST_NAME}"
+      d.vagrant_vagrantfile = "#{DOCKER_HOST_VAGRANTFILE}"
+      d.cmd = ["/bin/bash"]
+      d.create_args = ["-t", "-i"]
+      # Specify port mappings
+      # If omitted, no ports are mapped!
+      d.ports = ['80:80', '443:443']
+    end
+  end
+  config.ssh.port = "22"
+  config.ssh.username = "root"
+#  config.ssh.private_key_path = "insecure_key"
+end
