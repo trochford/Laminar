@@ -6,3 +6,4 @@ base:
   - registryip
   - dockerHostRegRef
   - minikube
+  - vagrant-reup
