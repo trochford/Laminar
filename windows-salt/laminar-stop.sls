@@ -1,5 +1,6 @@
 {% set PROGRAM_FILES =  pillar['PROGRAM_FILES'] %}
-{% set LAMINAR_DIR =  pillar['LAMINAR_DIR'] %}
+{% set LAMINAR_DIR   =  pillar['LAMINAR_DIR'] %}
+{% set HOME_PATH     =  pillar['HOME_PATH'] %}
     myService-down:
       cmd.run:
         - name: 'vagrant halt'
@@ -15,7 +16,7 @@
     minikube-down:
       cmd.run:
         - name: '.\minikube stop'
-        - cwd: '{{ PROGRAM_FILES }}/minikube'
+        - cwd: '{{ HOME_PATH }}/minikube'
     v-global-status:
       cmd.run:
         - name: 'vagrant global-status'

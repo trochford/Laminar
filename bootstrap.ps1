@@ -68,8 +68,18 @@ if ( $ans_cont -ne 'Y' ) { Return }
 $programFiles = $Env:PROGRAMFILES
 if ( -not $programFiles ) { $programFiles = "C:\Program Files" }
 
+$homePath = $Env:HOMEPATH
+$vboxDir  = $Env:VBOX_MSI_INSTALL_PATH
+if ( -not $vboxDir ) { # not installed, set to VB install default
+   $vboxDir = "C:\Program Files\Oracle\VirtualBox" 
+} else {
+   $vboxDir = $vboxDir.TrimEnd( '\' ).TrimEnd( '/' ) 
+}
+echo "vboxDir = " + $vboxDir 
+
 #Ensure spaces are escaped and don't break path segments
-$programFiles = $programFiles -replace ' ', '`%20'
+#$programFiles = $programFiles -replace ' ', '`%20'
+#$homePath     = $homePath     -replace ' ', '`%20'
 
 ##
 # Source directory will contain initial package downloads
@@ -97,11 +107,13 @@ foreach ($package in $packages) {
 ##
 ## Start recording the transcript of the run
 ##
+# This script was invoked from the Laminar diretory - so $PSScriptRoot will reference the Laminar directory
+$PSScriptRoot = Split-Path -Parent -Path $MyInvocation.MyCommand.Definition
 
 $ErrorActionPreference="SilentlyContinue"
 Stop-Transcript | out-null
 $ErrorActionPreference = "Continue"
-Start-Transcript -path C:\output.txt -append
+Start-Transcript -path $PSScriptRoot + "\" + output.txt # -append
 
 ##
 # Download the selected packages
@@ -133,10 +145,6 @@ foreach ($package in $packages) {
 }
 
 ##
-# This script was invoked from the Laminar diretory - so $PSScriptRoot will reference the Laminar directory
-$PSScriptRoot = Split-Path -Parent -Path $MyInvocation.MyCommand.Definition
-$PSScriptRoot = $PSScriptRoot -replace ' ', '`%20'
-
 # The Windows Salt sls files and associated Powershell scripts can be found here:
 # "$PSScriptRoot/windows-salt"
 
@@ -148,8 +156,11 @@ Set-Location $saltDir
 $confRoot = "$PSScriptRoot/windows-salt/conf"
 
 # Adjust the slashes of these 2 directory references for salt compatible syntax
-$PSScriptRootForSalt = $PSScriptRoot.Replace('\','/')
-$saltDirForSalt = $saltDir.Replace('\','/')
+$saltPSScriptRoot    = $PSScriptRoot.Replace('\','/')
+$saltSaltDir         = $saltDir.Replace('\','/')
+$saltProgramFiles    = $programFiles.Replace('\','/')
+$saltHomePath        = $homePath.Replace('\','/')
+$saltVboxDir         = $vboxDir.Replace('\','/')
 
 ##
 # Create a parameterized version of the Windows standalone client minion file
@@ -165,8 +176,8 @@ winrepo_remotes_ng:
 
 file_roots:
  base:
-  - $PSScriptRootForSalt/windows-salt
-  - $saltDirForSalt/srv/salt
+  - $saltPSScriptRoot/windows-salt
+  - $saltSaltDir/srv/salt
 "@
 
 # Now save the minion config contents out creating a Salt minion file
@@ -193,8 +204,8 @@ Invoke-Expression -Command ".\salt-call.bat --config-dir=$confRoot pkg.refresh_d
 
 Write-Host ""
 Write-Host "Executing Salt states to ensure VirtualBox, Vagrant, etc. are installed on Windows"
-echo ".\salt-call.bat --config-dir=$confRoot --metadata state.highstate pillar=`"{'PROGRAM_FILES': '$programFiles', 'LAMINAR_DIR': '$PSScriptRoot'}`" -l info"
-Invoke-Expression -Command ".\salt-call.bat --config-dir=$confRoot --metadata state.highstate pillar=`"{'PROGRAM_FILES': '$programFiles', 'LAMINAR_DIR': '$PSScriptRoot'}`" -l info"
+echo ".\salt-call.bat --config-dir=$confRoot --metadata state.highstate pillar=`"{'PROGRAM_FILES': '$saltProgramFiles', 'LAMINAR_DIR': '$saltPSScriptRoot', 'HOME_PATH': '$saltHomePath', 'VBOX_DIR': '$saltVboxDir' }`" -l info"
+Invoke-Expression -Command ".\salt-call.bat --config-dir=$confRoot --metadata state.highstate pillar=`"{'PROGRAM_FILES': '$saltProgramFiles', 'LAMINAR_DIR': '$saltPSScriptRoot', 'HOME_PATH': '$saltHomePath', 'VBOX_DIR': '$saltVboxDir' }`" -l info"
 
 
 ##

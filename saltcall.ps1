@@ -26,6 +26,7 @@
 #  [String]$args_to_pass_to_salt
 #) 
 
+
 # Dispatch the sub-command
 switch ($args[0]) {
   "--help" { & get-help .\saltcall.ps1 }
@@ -34,9 +35,23 @@ switch ($args[0]) {
   default  { 
 		$programFiles = $Env:PROGRAMFILES
 		$PSScriptRoot = Split-Path -Parent -Path $MyInvocation.MyCommand.Definition
-		$programFiles = $programFiles -replace ' ', '`%20'
-		$PSScriptRoot = $PSScriptRoot -replace ' ', '`%20'
+		$homePath     = $Env:HOMEPATH
+		$vboxDir      = $Env:VBOX_MSI_INSTALL_PATH
+                if ( -not $vboxDir ) { # not installed, set to VB install default
+                   $vboxDir = "C:\Program Files\Oracle\VirtualBox" 
+                } else {
+                   $vboxDir = $vboxDir.TrimEnd( '/' ).TrimEnd( '\' )
+                }
+		# $programFiles = $programFiles -replace ' ', '`%20'
+		# $PSScriptRoot = $PSScriptRoot -replace ' ', '`%20'
+		# $homePath     = $homePath     -replace ' ', '`%20'
+		
+		# Adjust the slashes of these 2 directory references for salt compatible syntax
+		$saltPSScriptRoot    = $PSScriptRoot.Replace('\','/')
+		$saltProgramFiles    = $programFiles.Replace('\','/')
+		$saltHomePath        = $homePath.Replace('\','/')
+		$saltVboxDir         = $vboxDir.Replace('\','/')
 
-		\salt\salt-call.bat --config-dir='.\windows-salt\conf' -l info $args pillar="{PROGRAM_FILES: '$programFiles', LAMINAR_DIR: '$PSScriptRoot' }"
+		\salt\salt-call.bat --config-dir='.\windows-salt\conf' -l all $args pillar="{PROGRAM_FILES: '$saltProgramFiles', LAMINAR_DIR: '$saltPSScriptRoot', 'HOME_PATH': '$saltHomePath', "VBOX_DIR": '$saltVboxDir' }"
             }
 }

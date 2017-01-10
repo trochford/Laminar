@@ -22,6 +22,16 @@
 $id = PowerShell '.\getDockerhostId.ps1'
 $ip = [Environment]::GetEnvironmentVariable( "REG_IP", "User" )
 
+# Set the PATH in our current process to include the git/usr/bin set in the calling dockerHostRegRef.sls
+foreach($level in "Machine","User") {
+   [Environment]::GetEnvironmentVariables($level).GetEnumerator() | % {
+      # For Path variables, append the new values, if they're not already in there
+      if($_.Name -match 'Path$') { 
+         $_.Value = ($((Get-Content "Env:$($_.Name)") + ";$($_.Value)") -split ';' | Select -unique) -join ';'
+      }
+      $_
+   } | ForEach{ Set-Content -Path "Env:$($_.Name)" -Value $_.Value }
+}
 
 $bashCmd = 'echo DOCKER_OPTS="--insecure-registry=' + $ip + '" >> /etc/default/docker'
 $vagrantCmd = "sudo bash -c '" + $bashCmd + "'"
