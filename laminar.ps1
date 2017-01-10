@@ -6,8 +6,9 @@
 	Sub-commands include:
 		- bootstrap
 		- up
+		- start
+		- stop
 		- down
-		- clean
 		- remove
 
 .DESCRIPTION 
