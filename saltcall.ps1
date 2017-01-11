@@ -42,16 +42,16 @@ switch ($args[0]) {
                 } else {
                    $vboxDir = $vboxDir.TrimEnd( '/' ).TrimEnd( '\' )
                 }
-		# $programFiles = $programFiles -replace ' ', '`%20'
-		# $PSScriptRoot = $PSScriptRoot -replace ' ', '`%20'
-		# $homePath     = $homePath     -replace ' ', '`%20'
 		
-		# Adjust the slashes of these 2 directory references for salt compatible syntax
+		# Adjust the slashes of these 4 directory references for salt compatible syntax
 		$saltPSScriptRoot    = $PSScriptRoot.Replace('\','/')
 		$saltProgramFiles    = $programFiles.Replace('\','/')
 		$saltHomePath        = $homePath.Replace('\','/')
 		$saltVboxDir         = $vboxDir.Replace('\','/')
 
-		\salt\salt-call.bat --config-dir='.\windows-salt\conf' -l all $args pillar="{PROGRAM_FILES: '$saltProgramFiles', LAMINAR_DIR: '$saltPSScriptRoot', 'HOME_PATH': '$saltHomePath', "VBOX_DIR": '$saltVboxDir' }"
+		echo \salt\salt-call.bat --config-dir='.\windows-salt\conf' -l all $args `
+                   pillar="{PROGRAM_FILES: '$saltProgramFiles', LAMINAR_DIR: '$saltPSScriptRoot', HOME_PATH: '$saltHomePath', VBOX_DIR: '$saltVboxDir' }"  
+		\salt\salt-call.bat --config-dir='.\windows-salt\conf' -l all $args `
+                   pillar="{PROGRAM_FILES: '$saltProgramFiles', LAMINAR_DIR: '$saltPSScriptRoot', HOME_PATH: '$saltHomePath', VBOX_DIR: '$saltVboxDir' }"  
             }
 }

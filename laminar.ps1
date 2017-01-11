@@ -56,32 +56,60 @@
 	http://github.com/trochford/Laminar
 #> 
 
-# Echo out the requested sub-command
-echo "Running Laminar... " $args[0]
+$PSScriptRoot = Split-Path -Parent -Path $MyInvocation.MyCommand.Definition
+
+echo "Running Laminar.... " $args[0] *>&1 |
+  tee -filepath "$($PSScriptRoot)\output0.txt" ;
+
 
 # Dispatch the sub-command
 switch ($args[0]) {
   "bootstrap"   { 
-                  Invoke-Expression ".\bootstrap.ps1" 
+                  Invoke-Expression ".\bootstrap.ps1 *>&1 |
+                    tee -filepath $($PSScriptRoot)\output1.txt" ;
+                  echo "" > output2.txt;
+                  echo "" > output3.txt;
                   # Set REG_IP to be available in the shell calling this script
                   & { $global:REG_IP = [Environment]::GetEnvironmentVariable("REG_IP", "User") }
                 }
   "up"          { 
-                  Invoke-Expression ".\saltcall.ps1 state.apply laminar-up";
+                  Invoke-Expression ".\saltcall.ps1 state.apply laminar-up *>&1 | 
+                     tee -filepath $($PSScriptRoot)\output1.txt" ;
+                  echo "" > output2.txt;
+                  echo "" > output3.txt;
                   # Set REG_IP to be available in the shell calling this script
                   & { $global:REG_IP = [Environment]::GetEnvironmentVariable("REG_IP", "User") }
                 }
-  "start"       { Invoke-Expression ".\saltcall.ps1 state.apply laminar-start" }
-  "stop"        { Invoke-Expression ".\saltcall.ps1 state.apply laminar-stop" }
+  "start"       { Invoke-Expression ".\saltcall.ps1 state.apply laminar-start *>&1 |
+                     tee -filepath $($PSScriptRoot)\output1.txt";
+                  echo "" > output2.txt;
+                  echo "" > output3.txt;
+                }
+  "stop"        { Invoke-Expression ".\saltcall.ps1 state.apply laminar-stop *>&1 |
+                     tee -filepath $($PSScriptRoot)\output1.txt";
+                  echo "" > output2.txt;
+                  echo "" > output3.txt;
+                }
   "down"        { 
-                  Invoke-Expression ".\saltcall.ps1 state.apply laminar-stop";
-                  Invoke-Expression ".\saltcall.ps1 state.apply laminar-clean" 
+                  Invoke-Expression ".\saltcall.ps1 state.apply laminar-stop *>&1 |
+                     tee -filepath $($PSScriptRoot)\output1.txt";
+                  Invoke-Expression ".\saltcall.ps1 state.apply laminar-clean *>&1 |
+                     tee -filepath $($PSScriptRoot)\output2.txt";
+                  echo "" > output3.txt;
                 }
   "remove"      { 
-                  Invoke-Expression ".\saltcall.ps1 state.apply laminar-stop";
-                  Invoke-Expression ".\saltcall.ps1 state.apply laminar-clean"; 
-                  Invoke-Expression ".\saltcall.ps1 state.apply laminar-remove" 
+                  Invoke-Expression ".\saltcall.ps1 state.apply laminar-stop *>&1 |
+                     tee -filepath $($PSScriptRoot)\output1.txt";
+                  Invoke-Expression ".\saltcall.ps1 state.apply laminar-clean *>&1 |
+                     tee -filepath $($PSScriptRoot)\output2.txt";
+                  Invoke-Expression ".\saltcall.ps1 state.apply laminar-remove *>&1 |
+                     tee -filepath $($PSScriptRoot)\output3.txt";
                 }
   default       { & get-help .\laminar.ps1 }
 }
 
+cat output0.txt, output1.txt, output2.txt, output3.txt > output.txt
+
+rm output0.txt, output1.txt, output2.txt, output3.txt
+
+cat output.txt | out-host -paging 
