@@ -4,8 +4,8 @@
 {% set HOME_PATH   =  pillar['HOME_PATH'] %}
 
   vagrant:
-    pkg:
-      - installed
+    pkg.installed:
+      - version: 1.8.6
     file.absent:
       - name: '{{ HOME_PATH }}\VirtualBox VMs\vagrant-dockerhost'
     cmd.run:

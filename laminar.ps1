@@ -56,6 +56,8 @@
 	http://github.com/trochford/Laminar
 #> 
 
+$runningHelp = $FALSE  # Assume false and prove true
+
 $PSScriptRoot = Split-Path -Parent -Path $MyInvocation.MyCommand.Definition
 
 echo "Running Laminar.... " $args[0] *>&1 |
@@ -64,6 +66,7 @@ echo "Running Laminar.... " $args[0] *>&1 |
 
 # Dispatch the sub-command
 switch ($args[0]) {
+
   "bootstrap"   { 
                   Invoke-Expression ".\bootstrap.ps1 *>&1 |
                     tee -filepath $($PSScriptRoot)\output1.txt" ;
@@ -105,11 +108,15 @@ switch ($args[0]) {
                   Invoke-Expression ".\saltcall.ps1 state.apply laminar-remove *>&1 |
                      tee -filepath $($PSScriptRoot)\output3.txt";
                 }
-  default       { & get-help .\laminar.ps1 }
+  default       { & get-help .\laminar.ps1; $runningHelp = $TRUE }
 }
 
-cat output0.txt, output1.txt, output2.txt, output3.txt > output.txt
+if ( -not $runningHelp ) {
 
-rm output0.txt, output1.txt, output2.txt, output3.txt
+  cat output0.txt, output1.txt, output2.txt, output3.txt > output.txt
 
-cat output.txt | out-host -paging 
+  rm output0.txt, output1.txt, output2.txt, output3.txt
+
+  cat output.txt | out-host -paging 
+
+}

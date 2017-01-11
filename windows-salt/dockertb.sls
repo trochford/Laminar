@@ -23,6 +23,7 @@
         - cwd: '{{ HOME_PATH }}\dockertb'
     # Convert the powershell install script
     # to salt states so we are not dependent on the script itself which requires powershell v4
+    # So far dvm (Docker Version Manager) has not been needed.
     dvm_install:
       cmd.run:
         - name: powershell.exe -ExecutionPolicy ByPass -File dvm_install.ps1

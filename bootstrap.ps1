@@ -110,10 +110,10 @@ foreach ($package in $packages) {
 # This script was invoked from the Laminar diretory - so $PSScriptRoot will reference the Laminar directory
 $PSScriptRoot = Split-Path -Parent -Path $MyInvocation.MyCommand.Definition
 
-$ErrorActionPreference="SilentlyContinue"
-Stop-Transcript | out-null
-$ErrorActionPreference = "Continue"
-Start-Transcript -path $PSScriptRoot + "\" + output.txt # -append
+#$ErrorActionPreference="SilentlyContinue"
+#Stop-Transcript | out-null
+#$ErrorActionPreference = "Continue"
+#Start-Transcript -path $PSScriptRoot + "\" + output.txt # -append
 
 ##
 # Download the selected packages
@@ -216,4 +216,4 @@ Set-Location "$PSScriptRoot"
 ## Close the transcript
 ##
 
-Stop-Transcript
+#Stop-Transcript
