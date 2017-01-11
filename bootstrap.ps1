@@ -75,7 +75,6 @@ if ( -not $vboxDir ) { # not installed, set to VB install default
 } else {
    $vboxDir = $vboxDir.TrimEnd( '\' ).TrimEnd( '/' ) 
 }
-echo "vboxDir = " + $vboxDir 
 
 #Ensure spaces are escaped and don't break path segments
 #$programFiles = $programFiles -replace ' ', '`%20'
