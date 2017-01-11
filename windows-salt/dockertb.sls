@@ -51,7 +51,7 @@
         - name: 'docker-machine start registry'
     registry_root:
       cmd.run:
-        - name: 'docker-machine ssh registry "sudo chmod -R 777 /mnt/sda1/var/lib/boot2docker ; echo ""mkdir -p /var/lib/registry ; mount -t vboxsf -o defaults,uid=`id -u docker`,gid=`id -g docker` reg_data /var/lib/registry"" >> /mnt/sda1/var/lib/boot2docker/bootlocal.sh"'
+        - name: 'docker-machine ssh registry "sudo chmod -R 777 /mnt/sda1/var/lib/boot2docker ; echo \"mkdir -p /var/lib/registry ; mount -t vboxsf -o defaults,uid=`id -u docker`,gid=`id -g docker` reg_data /var/lib/registry\" >> /mnt/sda1/var/lib/boot2docker/bootlocal.sh"'
     registry_data:
       cmd.run:
         - name: 'docker-machine ssh registry "mkdir ~/data"'
