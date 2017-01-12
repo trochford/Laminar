@@ -58,3 +58,58 @@ Tested on Windows 7 and Windows 10.
 For sessions subsequent to the initial running of the boot script, the Ubuntu image can be started in the standard Vagrant fashion:
 * *In a CMD shell, enter:* cd c:\Laminar\vagrantShare
 * *Enter:* vagrant up
+
+### Laminar Help
+
+NAME
+    C:\users\tim\documents\laminar\laminar.ps1
+    
+SYNOPSIS
+    Dispatches a Laminar request to seven sub-commands.
+    
+    Sub-commands include:
+    	- bootstrap
+    	- up
+    	- start
+    	- env
+    	- stop
+    	- down
+    	- remove
+    
+    
+SYNTAX
+    C:\users\tim\documents\laminar\laminar.ps1 [<CommonParameters>]
+    
+    
+DESCRIPTION
+    Laminar commands include:
+    
+     - bootstrap 
+       Download and install toolsets (listed below in Notes section) and wire together and activate them
+    
+     - up
+       Typically used after "laminar down" - restarts the toolsets reinstantiating toolsets as needed
+    
+     - start
+       Typically used after "laminar stop" - restarts the toolsets
+    
+     - env
+       Sets the shell variable $myReg in the Powershell console 
+    
+     - stop
+       Deactivates the underlying Laminar toolsets - used to free up compute resources on your physical machine
+    
+     - down
+       Deactivated underlying Laminar toolsets and destroys any instances created. The Docker registry is stopped 
+       but not removed.
+    
+     - remove
+       Uninstalls the Laminar toolsets
+    
+    Laminar should be run in a Powershell with Administrator privileges with ExecutionPolicy set to Unrestricted.
+    
+
+RELATED LINKS
+    http://github.com/trochford/Laminar
+
+
