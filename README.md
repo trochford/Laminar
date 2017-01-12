@@ -20,7 +20,7 @@ A "lite" version of Kubernetes can also be installed - Minikube.  It requires th
 command line utility as well - Kubectl. Laminar boot.ps1 will ask if you want them installed.
 
 #### Download
-* Clone or download and extract project into a local directory, e.g. c:\Laminar
+* Clone or download and extract project into a local directory, e.g. c:\Laminar or c:\Users\albert
 
 #### Usage: To get started...
 
