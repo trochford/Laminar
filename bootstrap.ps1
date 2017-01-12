@@ -46,6 +46,7 @@ Write-Host "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Write-Host "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 Write-Host "                                                                                                  "
 
+
 ##
 # Assume the Powershell version is not compatible and prove it is..
 $isCompatibleWithSaltstack = $FALSE
@@ -63,6 +64,7 @@ if ( -not $isCompatibleWithSaltstack ) {
 $ans_cont = Read-Host -Prompt 'Continue - [Y]es or [N]?'
 if ( $ans_cont -ne 'Y' ) { Return }
 
+
 ##
 # program files - the conventional Windows Program Files directory 
 $programFiles = $Env:PROGRAMFILES
@@ -76,9 +78,6 @@ if ( -not $vboxDir ) { # not installed, set to VB install default
    $vboxDir = $vboxDir.TrimEnd( '\' ).TrimEnd( '/' ) 
 }
 
-#Ensure spaces are escaped and don't break path segments
-#$programFiles = $programFiles -replace ' ', '`%20'
-#$homePath     = $homePath     -replace ' ', '`%20'
 
 ##
 # Source directory will contain initial package downloads
@@ -109,10 +108,6 @@ foreach ($package in $packages) {
 # This script was invoked from the Laminar diretory - so $PSScriptRoot will reference the Laminar directory
 $PSScriptRoot = Split-Path -Parent -Path $MyInvocation.MyCommand.Definition
 
-#$ErrorActionPreference="SilentlyContinue"
-#Stop-Transcript | out-null
-#$ErrorActionPreference = "Continue"
-#Start-Transcript -path $PSScriptRoot + "\" + output.txt # -append
 
 ##
 # Download the selected packages
@@ -211,8 +206,3 @@ Invoke-Expression -Command ".\salt-call.bat --config-dir=$confRoot --metadata st
 # After Salt work completes, return to the Laminar diretory 
 Set-Location "$PSScriptRoot"
 
-##
-## Close the transcript
-##
-
-#Stop-Transcript

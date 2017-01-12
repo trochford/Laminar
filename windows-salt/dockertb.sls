@@ -52,7 +52,10 @@
         - name: 'docker-machine start registry'
     registry_root:
       cmd.run:
-        - name: 'docker-machine ssh registry "sudo chmod -R 777 /mnt/sda1/var/lib/boot2docker ; echo \"mkdir -p /var/lib/registry ; mount -t vboxsf -o defaults,uid=`id -u docker`,gid=`id -g docker` reg_data /var/lib/registry\" >> /mnt/sda1/var/lib/boot2docker/bootlocal.sh"'
+        - name: 'docker-machine ssh registry "mkdir -p /var/lib/registry ; sudo mount -t vboxsf -o defaults,uid=`id -u docker`,gid=`id -g docker` /var/lib/registry /var/lib/registry"'
+    registry_root_bootlocal:
+      cmd.run:
+        - name: 'docker-machine ssh registry "echo \"mount -t vboxsf -o defaults,uid=`id -u docker`,gid=`id -g docker` /var/lib/registry /var/lib/registry\" | sudo tee -a /mnt/sda1/var/lib/boot2docker/bootlocal.sh > /dev/null; sudo chmod +x /mnt/sda1/var/lib/boot2docker/bootlocal.sh"'
     registry_data:
       cmd.run:
         - name: 'docker-machine ssh registry "mkdir ~/data"'
@@ -60,6 +63,7 @@
       cmd.run:
         # Replaced the "bash" line below is the powershell analog line below that (up thru Invoke-Expression)...
         #- name: 'eval $("location of docker-machine.exe" env registry)' 
-        - name: '& docker-machine env --shell=powershell registry | Invoke-Expression; docker-machine active; docker run -d -p 80:5000 --restart=always --name=registry -v /home/docker/data:/var/lib/registry registry:2'
+        #- name: '& docker-machine env --shell=powershell registry | Invoke-Expression; docker-machine active; docker run -d -p 80:5000 --restart=always --name=registry -v /home/docker/data:/var/lib/registry registry:2'
+        - name: '& docker-machine env --shell=powershell registry | Invoke-Expression; docker-machine active; docker run -d -p 80:5000 --restart=always --name=registry -v /var/lib/registry:/var/lib/registry registry:2'
         - shell: powershell
   {% endfor %}

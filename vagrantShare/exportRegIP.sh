@@ -3,8 +3,8 @@
 # IP will hold the IP address of the Registry
 IP=$1
 
-# Create an environment variable REG_IP to hold the Registry address
+# Create an environment variable myReg to hold the Registry address
 source ~/.profile
-if [ -z "$REG_IP" ] || [ "$REG_IP" != "$IP" ]; then 
-    echo "export REG_IP=${IP}" >> ~/.profile
+if [ -z "$myReg" ] || [ "$myReg" != "$IP" ]; then 
+    echo "export myReg=${IP}" >> ~/.profile
 fi

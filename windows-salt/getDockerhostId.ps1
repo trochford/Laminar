@@ -1,8 +1,8 @@
 <# 
 .SYNOPSIS 
-	Set the private Docker "registry" IP address into REG_IP environment variable
+	Set the private Docker "registry" IP address into myReg environment variable
 .DESCRIPTION 
-	Calls "docker-machine ip registory".  Sets REG_IP in the User namespace
+	Calls "docker-machine ip registory".  Sets myReg in the User namespace
 .EXAMPLE
 	cd <Laminar root directory>\windows-salt  - e.g. cd c:\Laminar\windows-salt
 	.\saveRegIPInEnvVar.ps1

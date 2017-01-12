@@ -20,7 +20,7 @@
 #> 
 
 $id = PowerShell '.\getDockerhostId.ps1'
-$ip = [Environment]::GetEnvironmentVariable( "REG_IP", "User" )
+$ip = [Environment]::GetEnvironmentVariable( "myReg", "User" )
 
 # Set the PATH in our current process to include the git/usr/bin set in the calling dockerHostRegRef.sls
 foreach($level in "Machine","User") {

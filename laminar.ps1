@@ -1,12 +1,13 @@
 <# 
 .SYNOPSIS 
 	
-	Dispatches a Laminar request to six sub-commands.
+	Dispatches a Laminar request to seven sub-commands.
 
 	Sub-commands include:
 		- bootstrap
 		- up
 		- start
+		- env
 		- stop
 		- down
 		- remove
@@ -22,6 +23,9 @@
 
 	  - start
 	    Typically used after "laminar stop" - restarts the toolsets
+
+	  - env
+	    Sets the shell variable $myReg in the Powershell console 
 
 	  - stop
 	    Deactivates the underlying Laminar toolsets - used to free up compute resources on your physical machine
@@ -39,7 +43,7 @@
 	In a Powershell with Admin privileges...
 
 	cd <Laminar root directory>  - e.g. cd c:\Laminar
-	.\laminar.ps1 < bootstrap | up | down | clean | remove >
+	.\laminar < bootstrap | up | start | env | stop | down | remove >
 
 .NOTES
 	Laminar Toolsets:
@@ -56,7 +60,7 @@
 	http://github.com/trochford/Laminar
 #> 
 
-$runningHelp = $FALSE  # Assume false and prove true
+$runningHelpOrEnv = $FALSE  # Assume false and prove true
 
 $PSScriptRoot = Split-Path -Parent -Path $MyInvocation.MyCommand.Definition
 
@@ -72,21 +76,24 @@ switch ($args[0]) {
                     tee -filepath $($PSScriptRoot)\output1.txt" ;
                   echo "" > output2.txt;
                   echo "" > output3.txt;
-                  # Set REG_IP to be available in the shell calling this script
-                  & { $global:REG_IP = [Environment]::GetEnvironmentVariable("REG_IP", "User") }
+                  # Set myReg to be available in the shell calling this script
+                  & { $global:myReg = [Environment]::GetEnvironmentVariable("myReg", "User") }
                 }
   "up"          { 
                   Invoke-Expression ".\saltcall.ps1 state.apply laminar-up *>&1 | 
                      tee -filepath $($PSScriptRoot)\output1.txt" ;
                   echo "" > output2.txt;
                   echo "" > output3.txt;
-                  # Set REG_IP to be available in the shell calling this script
-                  & { $global:REG_IP = [Environment]::GetEnvironmentVariable("REG_IP", "User") }
+                  # Set myReg to be available in the shell calling this script
+                  & { $global:myReg = [Environment]::GetEnvironmentVariable("myReg", "User") }
                 }
   "start"       { Invoke-Expression ".\saltcall.ps1 state.apply laminar-start *>&1 |
                      tee -filepath $($PSScriptRoot)\output1.txt";
                   echo "" > output2.txt;
                   echo "" > output3.txt;
+                }
+  "env"         { $runningHelpOrEnv = $TRUE; 
+                  & { $global:myReg = [Environment]::GetEnvironmentVariable("myReg", "User") }
                 }
   "stop"        { Invoke-Expression ".\saltcall.ps1 state.apply laminar-stop *>&1 |
                      tee -filepath $($PSScriptRoot)\output1.txt";
@@ -108,15 +115,20 @@ switch ($args[0]) {
                   Invoke-Expression ".\saltcall.ps1 state.apply laminar-remove *>&1 |
                      tee -filepath $($PSScriptRoot)\output3.txt";
                 }
-  default       { & get-help .\laminar.ps1; $runningHelp = $TRUE }
+  default       { & get-help .\laminar.ps1; $runningHelpOrEnv = $TRUE }
 }
 
-if ( -not $runningHelp ) {
 
-  cat output0.txt, output1.txt, output2.txt, output3.txt > output.txt
+if ( -not $runningHelpOrEnv ) {
 
-  rm output0.txt, output1.txt, output2.txt, output3.txt
+  cat output0.txt, output1.txt, output2.txt, output3.txt | 
+     out-file -encoding ascii -filepath output.txt
 
-  cat output.txt | out-host -paging 
+  rm output1.txt, output2.txt, output3.txt
+
+  #cat output.txt | out-host -paging 
+  less output.txt 
 
 }
+
+rm output0.txt  # Always created upon Laminar invocation
