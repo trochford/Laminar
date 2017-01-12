@@ -6,6 +6,11 @@ file_client: local
 
 #cachedir: /var/cache/salt/minion
 
+winrepo_remotes:
+  - https://github.com/saltstack/salt-winrepo.git
+winrepo_remotes_ng:
+  - https://github.com/saltstack/salt-winrepo-ng.git
+# can add another line to this creating another target remote winrepo
 
 file_roots:
  base:

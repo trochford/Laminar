@@ -1,27 +1,33 @@
 # Laminar
-Quick setup of Git, SaltStack, Vagrant, Ubuntu and Docker for a Windows machine targeting Linux development.
+Quick setup of Git, SaltStack, Vagrant, Docker, Docker Toolbox and Minikube for a Windows machine targeting Linux development.
 
 #### Objectives: 
 * Reduce the turbulence in getting started with Linux/Salt/Docker when developing on a Windows machine.
 * Ease the transition of introducing SaltStack in support of Production Configuration.
 
-Laminar will initiate by installing Salt and Git on Windows.  The Salt Winrepo will then be downloaded,
+Laminar will bootstrap by installing Salt and Git on Windows.  The Salt Winrepo will then be downloaded,
 and based on Winrepo definitions, VirtualBox and Vagrant will be installed on Windows.  Vagrant will
-bring up VirtualBox with a Ubuntu image.  Salt will be installed in that Ubuntu image and then Salt and Git
-will provision Docker in that image as well. Both Salt installations will be masterless minions.
+bring up VirtualBox with a Ubuntu image as a Docker host.  Salt will be installed in that Ubuntu image and
+then Salt and Git will provision Docker. Both the Windows and Linux Salt installations will be masterless minions.
+
+Docker Toolbox will be installed (on Windows) and a private, local, insecure registry will be configured.  
+The Vagrant Dockerhost will be configured with an environment variable REG_IP that references the registry IP address and port to ease "docker pushes" to the registry from the Docker host.
+
+A "lite" version of Kubernetes can also be installed - Minikube.  It requires the Kubernetes
+command line utility as well.  Minikube will be configured to pull from the private registry also using the registry IP and port.
 
 A "lite" version of Kubernetes can also be installed - Minikube.  It requires the Kubernetes
 command line utility as well - Kubectl. Laminar boot.ps1 will ask if you want them installed.
 
 #### Download
-* Clone or download and extract project into c:\Laminar
+* Clone or download and extract project into a local directory, e.g. c:\Laminar
 
-#### Usage: 
+#### Usage: To get started...
 
 1. *Open a Powershell in Windows run as administrator*
 2. *Enter:* Set-ExecutionPolicy Unrestricted
 3. *Enter:* cd \Laminar
-4. *Enter:* ./boot.ps1
+4. *Enter:* .\laminar bootstrap
 
 ##### Powershell
 * *To open a Powershell, use the Start menu Search entering:* Powershell
@@ -52,4 +58,3 @@ Tested on Windows 7 and Windows 10.
 For sessions subsequent to the initial running of the boot script, the Ubuntu image can be started in the standard Vagrant fashion:
 * *In a CMD shell, enter:* cd c:\Laminar\vagrantShare
 * *Enter:* vagrant up
-
