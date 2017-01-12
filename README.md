@@ -16,6 +16,9 @@ The Vagrant Dockerhost will be configured with an environment variable REG_IP th
 A "lite" version of Kubernetes can also be installed - Minikube.  It requires the Kubernetes
 command line utility as well.  Minikube will be configured to pull from the private registry also using the registry IP and port.
 
+A "lite" version of Kubernetes can also be installed - Minikube.  It requires the Kubernetes
+command line utility as well - Kubectl. Laminar boot.ps1 will ask if you want them installed.
+
 #### Download
 * Clone or download and extract project into a local directory, e.g. c:\Laminar
 
