@@ -1,11 +1,4 @@
 file_client: local
-
-#root_dir: c:/Laminar/windows-salt
-
-#pki_dir: /conf/pki/minion
-
-#cachedir: /var/cache/salt/minion
-
 winrepo_remotes:
   - https://github.com/saltstack/salt-winrepo.git
 winrepo_remotes_ng:
@@ -14,11 +7,5 @@ winrepo_remotes_ng:
 
 file_roots:
  base:
-  - c:/Laminar/windows-salt
+  - C:/Users/Tim/laminar/windows-salt
   - c:/salt/srv/salt
-
-# Leaving these as the defaults - winrepo info can be found under /salt/srv/salt
-#winrepo_dir: c:/laminar/windows-salt/salt/win/repo
-#winrepo_dir_ng: c:/laminar/windows-salt/salt/win/repo
-#winrepo_source_dir: salt://laminar/windows-salt/salt/win/repo
-#winrepo_cachefile: winrepo.p
