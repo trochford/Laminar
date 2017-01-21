@@ -1,21 +1,27 @@
 {% set PROGRAM_FILES =  pillar['PROGRAM_FILES'] %}
-{% set LAMINAR_DIR =  pillar['LAMINAR_DIR'] %}
-    myService-down:
+{% set LAMINAR_DIR   =  pillar['LAMINAR_DIR'] %}
+{% set HOME_PATH     =  pillar['HOME_PATH'] %}
+
+#
+# Re-start Vagrant; Start the Registry and Minikube cluster
+#
+
+    myService-start:
       cmd.run:
         - name: 'vagrant reload'
         - cwd: '{{ LAMINAR_DIR }}/vagrantShare/myService'
-    dockerhost-down:
+    dockerhost-start:
       cmd.run:
         - name: 'vagrant reload'
         - cwd: '{{ LAMINAR_DIR }}/vagrantShare'
-    registry-down:
+    registry-start:
       cmd.run:
         - name: 'docker-machine start registry'
         - cwd: '{{ LAMINAR_DIR }}'
-    minikube-down:
+    minikube-start:
       cmd.run:
-        - name: '.\minikube start'
-        - cwd: '{{ PROGRAM_FILES }}/minikube'
+        - name: 'minikube up'
+        - cwd: '{{ HOME_PATH }}/minikube'
     v-global-status:
       cmd.run:
         - name: 'vagrant global-status'

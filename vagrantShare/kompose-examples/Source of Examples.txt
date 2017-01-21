@@ -1,0 +1,1 @@
+https://github.com/kubernetes-incubator/kompose/tree/master/examples

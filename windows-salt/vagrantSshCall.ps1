@@ -11,34 +11,33 @@
 	.\vagrantSshCall.ps1
 
 .NOTES
-	Uses [Environment]::GetEnvironmentVarialble.  Other approaches do not
-	reliably allow for getting the value in the same Powershell session.
-	Calls: getDockerhostId.ps1
+	Uses [Environment]::GetEnvironmentVariable to get current value of "myReg". 
+        Updates the current process (not the interactive shell) with User+Machine paths 
+        to reflect any new installations in the calling process
+	 
 	Author     : Tim Rochford - trochford-gh@gmail.com
 .LINK 
 	http://github.com/trochford/Laminar
 #> 
 
-$id = PowerShell '.\getDockerhostId.ps1'
 $ip = [Environment]::GetEnvironmentVariable( "myReg", "User" )
 
-# Set the PATH in our current process to include the git/usr/bin set in the calling dockerHostRegRef.sls
-foreach($level in "Machine","User") {
-   [Environment]::GetEnvironmentVariables($level).GetEnumerator() | % {
-      # For Path variables, append the new values, if they're not already in there
-      if($_.Name -match 'Path$') { 
-         $_.Value = ($((Get-Content "Env:$($_.Name)") + ";$($_.Value)") -split ';' | Select -unique) -join ';'
-      }
-      $_
-   } | ForEach{ Set-Content -Path "Env:$($_.Name)" -Value $_.Value }
-}
+
+##
+# Update the process path to be the combination of the User and Machine paths
+# in order to pickup any new installations not reflected in this process
+$userPaths       = [Environment]::GetEnvironmentVariable('Path', 'User') -split ';'
+$machinePaths    = [Environment]::GetEnvironmentVariable('Path', 'Machine') -split ';'
+$newProcessPaths = $userPaths + $machinePaths
+[Environment]::SetEnvironmentVariable('Path', $newProcessPaths -join ';', 'Process')
 
 $bashCmd = 'echo DOCKER_OPTS="--insecure-registry=' + $ip + '" >> /etc/default/docker'
 $vagrantCmd = "sudo bash -c '" + $bashCmd + "'"
 
-vagrant ssh $id -c  $vagrantCmd
+vagrant ssh -c  $vagrantCmd
 
-vagrant ssh $id -c "sudo restart docker"
+vagrant ssh -c "sudo restart docker"
 
-vagrant ssh $id -c "/bin/bash -x /vagrantShare/exportRegIP.sh $ip"
+vagrant ssh -c "/bin/bash -x /vagrantShare/exportRegIP.sh $ip"
+
 

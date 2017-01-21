@@ -6,6 +6,7 @@
 	Sub-commands include:
 		- bootstrap
 		- up
+		- kubeup
 		- start
 		- env
 		- stop
@@ -16,26 +17,29 @@
 	 Laminar commands include:
 
 	  - bootstrap 
-	    Download and install toolsets (listed below in Notes section) and wire together and activate them
+	    Download and install toolsets (listed below in Notes section) and wire together and activate them.
 
 	  - up
-	    Typically used after "laminar down" - restarts the toolsets reinstantiating toolsets as needed
+	    Typically used after "laminar down" - restarts the toolsets reinstantiating as needed.
+
+	  - kubeup
+	    Starts just the minikube cluster with Laminar config parameters.  Alias for "minikube up".
 
 	  - start
-	    Typically used after "laminar stop" - restarts the toolsets
+	    Typically used after "laminar stop" - restarts the toolsets.
 
 	  - env
-	    Sets the shell variable $myReg in the Powershell console 
+	    Sets the shell variable $myReg .
 
 	  - stop
-	    Deactivates the underlying Laminar toolsets - used to free up compute resources on your physical machine
+	    Deactivates the underlying Laminar toolsets - used to free up compute resources on your physical machine.
 
 	  - down
 	    Deactivated underlying Laminar toolsets and destroys any instances created. The Docker registry is stopped 
-	    but not removed.
+	    but contents are not removed.
 
 	  - remove
-	    Uninstalls the Laminar toolsets
+	    Uninstalls the Laminar toolsets.
 
 	Laminar should be run in a Powershell with Administrator privileges with ExecutionPolicy set to Unrestricted.
 
@@ -43,10 +47,10 @@
 	In a Powershell with Admin privileges...
 
 	cd <Laminar root directory>  - e.g. cd c:\Laminar
-	.\laminar < bootstrap | up | start | env | stop | down | remove >
+	.\laminar < bootstrap | up | kubeup | start | env | stop | down | remove >
 
 .NOTES
-	Laminar Toolsets:
+	Laminar Toolset:
 	- Git
 	- Salt
 	- Virtualbox
@@ -54,81 +58,112 @@
 	- Docker
 	- Docker Toolbox
 	- Minikube and Kubectl
+	- Kompose
 
 	Author     : Tim Rochford - trochford-gh@gmail.com
 .LINK 
 	http://github.com/trochford/Laminar
 #> 
 
-$runningHelpOrEnv = $FALSE  # Assume false and prove true
+$runningNoLogOutput = $FALSE  # Assume false and prove true
 
 $PSScriptRoot = Split-Path -Parent -Path $MyInvocation.MyCommand.Definition
 
-echo "Running Laminar.... " $args[0] *>&1 |
-  tee -filepath "$($PSScriptRoot)\output0.txt" ;
+echo "Running Laminar.... " $args[0] |
+  tee -filepath "$PSScriptRoot\output0.txt" ;
 
 
 # Dispatch the sub-command
 switch ($args[0]) {
 
   "bootstrap"   { 
-                  Invoke-Expression ".\bootstrap.ps1 *>&1 |
-                    tee -filepath $($PSScriptRoot)\output1.txt" ;
-                  echo "" > output2.txt;
-                  echo "" > output3.txt;
+                  Invoke-Expression "$($PSScriptRoot)\bootstrap.ps1 2>&1 |
+                    tee -filepath $($PSScriptRoot)\output1.txt | Out-String -stream | Out-Host";
+                  echo "" > $PSScriptRoot\output2.txt;
+                  echo "" > $PSScriptRoot\output3.txt;
+
                   # Set myReg to be available in the shell calling this script
                   & { $global:myReg = [Environment]::GetEnvironmentVariable("myReg", "User") }
+                  
+                  # Update the process path to be the combination of the User and Machine paths
+                  # in order to pickup any new installations; Also add the laminar directory to User path
+                  $userPaths       = [Environment]::GetEnvironmentVariable('Path', 'User') -split ';'
+                  $userPaths       +=  $PSScriptRoot 
+                  [Environment]::SetEnvironmentVariable('Path', $userPaths -join ';', 'User')
+                  $machinePaths    = [Environment]::GetEnvironmentVariable('Path', 'Machine') -split ';'
+                  $newProcessPaths = $userPaths + $machinePaths 
+                  [Environment]::SetEnvironmentVariable('Path', $newProcessPaths -join ';', 'Process')
+
                 }
   "up"          { 
-                  Invoke-Expression ".\saltcall.ps1 state.apply laminar-up *>&1 | 
-                     tee -filepath $($PSScriptRoot)\output1.txt" ;
-                  echo "" > output2.txt;
-                  echo "" > output3.txt;
+                  Invoke-Expression "$($PSScriptRoot)\saltcall.ps1 state.apply laminar-up 2>&1 | 
+                     tee -filepath $($PSScriptRoot)\output1.txt | Out-String -stream | Out-Host";
+                  echo "" > $PSScriptRoot\output2.txt;
+                  echo "" > $PSScriptRoot\output3.txt;
                   # Set myReg to be available in the shell calling this script
                   & { $global:myReg = [Environment]::GetEnvironmentVariable("myReg", "User") }
                 }
-  "start"       { Invoke-Expression ".\saltcall.ps1 state.apply laminar-start *>&1 |
-                     tee -filepath $($PSScriptRoot)\output1.txt";
-                  echo "" > output2.txt;
-                  echo "" > output3.txt;
+  "kubeup"      { $runningNoLogOutput = $TRUE;
+                  & minikube up
                 }
-  "env"         { $runningHelpOrEnv = $TRUE; 
-                  & { $global:myReg = [Environment]::GetEnvironmentVariable("myReg", "User") }
+  "start"       { Invoke-Expression ".$($PSScriptRoot)\saltcall.ps1 state.apply laminar-start 2>&1 |
+                     tee -filepath $($PSScriptRoot)\output1.txt | Out-String -stream | Out-Host";
+                  echo "" > $PSScriptRoot\output2.txt;
+                  echo "" > $PSScriptRoot\output3.txt;
                 }
-  "stop"        { Invoke-Expression ".\saltcall.ps1 state.apply laminar-stop *>&1 |
-                     tee -filepath $($PSScriptRoot)\output1.txt";
-                  echo "" > output2.txt;
-                  echo "" > output3.txt;
+  "env"         { $runningNoLogOutput = $TRUE;
+                  & { $global:myReg = [Environment]::GetEnvironmentVariable("myReg", "User") };
+                }
+  "stop"        { Invoke-Expression "$($PSScriptRoot)\saltcall.ps1 state.apply laminar-stop 2>&1 |
+                     tee -filepath $($PSScriptRoot)\output1.txt | Out-String -stream | Out-Host";
+                  echo "" > $PSScriptRoot\output2.txt;
+                  echo "" > $PSScriptRoot\output3.txt;
                 }
   "down"        { 
-                  Invoke-Expression ".\saltcall.ps1 state.apply laminar-stop *>&1 |
-                     tee -filepath $($PSScriptRoot)\output1.txt";
-                  Invoke-Expression ".\saltcall.ps1 state.apply laminar-clean *>&1 |
-                     tee -filepath $($PSScriptRoot)\output2.txt";
-                  echo "" > output3.txt;
+                  Invoke-Expression "$($PSScriptRoot)\saltcall.ps1 state.apply laminar-stop 2>&1 |
+                     tee -filepath $($PSScriptRoot)\output1.txt | Out-String -stream | Out-Host";
+                  Invoke-Expression "$($PSScriptRoot)\saltcall.ps1 state.apply laminar-clean 2>&1 |
+                     tee -filepath $($PSScriptRoot)\output2.txt | Out-String -stream | Out-Host";
+                  echo "" > $PSScriptRoot\output3.txt;
                 }
   "remove"      { 
-                  Invoke-Expression ".\saltcall.ps1 state.apply laminar-stop *>&1 |
-                     tee -filepath $($PSScriptRoot)\output1.txt";
-                  Invoke-Expression ".\saltcall.ps1 state.apply laminar-clean *>&1 |
-                     tee -filepath $($PSScriptRoot)\output2.txt";
-                  Invoke-Expression ".\saltcall.ps1 state.apply laminar-remove *>&1 |
-                     tee -filepath $($PSScriptRoot)\output3.txt";
+                  Invoke-Expression "$($PSScriptRoot)\saltcall.ps1 state.apply laminar-stop 2>&1 |
+                     tee -filepath $($PSScriptRoot)\output1.txt | Out-String -stream | Out-Host";
+                  Invoke-Expression "$($PSScriptRoot)\saltcall.ps1 state.apply laminar-clean 2>&1 |
+                     tee -filepath $($PSScriptRoot)\output2.txt | Out-String -stream | Out-Host";
+                  Invoke-Expression "$($PSScriptRoot)\saltcall.ps1 state.apply laminar-remove 2>&1 |
+                     tee -filepath $($PSScriptRoot)\output3.txt | Out-String -stream | Out-Host";
+
+                  # Remove the Laminar directory from the User and current Process paths
+                  $userPath        = [Environment]::GetEnvironmentVariable('Path', 'User') -split ';'
+                  $newUserPath     = @()
+	          foreach ($dir in $userPath){
+		    if($dir -match [Regex]::escape($PSScriptRoot)){
+			#Do not Add to $newUserPath
+		    }
+		    else {
+			$newUserPath += $dir
+                    }
+	          }
+                  [Environment]::SetEnvironmentVariable('Path', $newUserPath -join ';', 'User')
+                  $machinePaths    = [Environment]::GetEnvironmentVariable('Path', 'Machine') -split ';'
+                  $newProcessPaths = $userPaths + $machinePaths 
+                  [Environment]::SetEnvironmentVariable('Path', $newProcessPaths -join ';', 'Process')
                 }
-  default       { & get-help .\laminar.ps1; $runningHelpOrEnv = $TRUE }
+  default       { & get-help $PSScriptRoot\laminar.ps1; $runningNoLogOutput = $TRUE }
 }
 
 
-if ( -not $runningHelpOrEnv ) {
+if ( -not $runningNoLogOutput ) {
 
-  cat output0.txt, output1.txt, output2.txt, output3.txt | 
-     out-file -encoding ascii -filepath output.txt
+  cat $PSScriptRoot\output0.txt, $PSScriptRoot\output1.txt, 
+     $PSScriptRoot\output2.txt, $PSScriptRoot\output3.txt | 
+     out-file -encoding ascii -filepath $PSScriptRoot\output.txt
 
-  rm output1.txt, output2.txt, output3.txt
+  rm $PSScriptRoot\output0.txt, $PSScriptRoot\output1.txt, $PSScriptRoot\output2.txt, $PSScriptRoot\output3.txt
 
-  #cat output.txt | out-host -paging 
-  less output.txt 
+  less $PSScriptRoot\output.txt 
 
+} else {
+  rm $PSScriptRoot\output0.txt  # Always created upon Laminar invocation
 }
-
-rm output0.txt  # Always created upon Laminar invocation

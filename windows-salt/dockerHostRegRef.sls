@@ -2,7 +2,8 @@
 {% set LAMINAR_DIR =  pillar['LAMINAR_DIR'] %}
 
 ##
-## States
+## Make sure Git's SSH is accessible to vagrant
+## Export the registry address to the vagrant-dockerhost
 ##
 
     # makes SSH available for "vagrant ssh"
@@ -14,8 +15,8 @@
       cmd.script:
         - name: 'vagrantSshCall.ps1'
         - source: {{ LAMINAR_DIR }}\windows-salt\vagrantSshCall.ps1
+        - cwd: {{ LAMINAR_DIR }}/vagrantShare
         - shell: powershell
         - env: 
           - ExecutionPolicy: ByPass
-        - cwd: {{ LAMINAR_DIR }}/windows-salt
 

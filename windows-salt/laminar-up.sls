@@ -1,6 +1,13 @@
 {% set PROGRAM_FILES =  pillar['PROGRAM_FILES'] %}
 {% set LAMINAR_DIR   =  pillar['LAMINAR_DIR'] %}
 {% set HOME_PATH     =  pillar['HOME_PATH'] %}
+
+#
+# Clean out prior vagrant-dockerhost VM and rebuild vagrant-dockerhost
+# Create and start registry and export registry address shell variables
+# Create the minikube cluster
+#
+
     myService-up:
       file.absent:
         - name: '{{ HOME_PATH }}\VirtualBox VMs\vagrant-dockerhost'
@@ -33,10 +40,10 @@
         - cwd: {{ LAMINAR_DIR }}/windows-salt
     minikube-up:
       cmd.script:
-        - name: 'minikube-up.ps1'
-        - source: '{{ HOME_PATH }}/minikube/minikube-up.ps1'
-        - cwd: '{{ HOME_PATH }}/minikube'
-        - shell: 'powershell'
+        - name: 'minikube.ps1 up'
+        - source: '{{ HOME_PATH }}/minikube/minikube.ps1'
+        - cwd: "{{ HOME_PATH }}/minikube"
+        - shell: powershell
         - env: 
           - ExecutionPolicy: ByPass
     myService-re-up:

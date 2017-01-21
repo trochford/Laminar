@@ -9,6 +9,7 @@
 		- Docker
 		- Docker Toolbox
 		- Minikube and Kubectl
+                - Kompose
 
 .DESCRIPTION 
 	Laminar will begin by installing Salt and Git.  The Salt Winrepo will then be downloaded,   
@@ -70,7 +71,8 @@ if ( $ans_cont -ne 'Y' ) { Return }
 $programFiles = $Env:PROGRAMFILES
 if ( -not $programFiles ) { $programFiles = "C:\Program Files" }
 
-$homePath = $Env:HOMEPATH
+$homePath = $Env:HOMEDRIVE+$Env:HOMEPATH
+
 $vboxDir  = $Env:VBOX_MSI_INSTALL_PATH
 if ( -not $vboxDir ) { # not installed, set to VB install default
    $vboxDir = "C:\Program Files\Oracle\VirtualBox" 
@@ -102,8 +104,6 @@ foreach ($package in $packages) {
 }
 
 
-##
-## Start recording the transcript of the run
 ##
 # This script was invoked from the Laminar diretory - so $PSScriptRoot will reference the Laminar directory
 $PSScriptRoot = Split-Path -Parent -Path $MyInvocation.MyCommand.Definition
@@ -178,28 +178,61 @@ file_roots:
 $minionText | Out-File -filepath $confRoot\minion -encoding ASCII
 
 ##
-# Retrieve the winrepo into --- (These 3 salt-calls should be moved to a Salt SLS file)
+# Retrieve the winrepo into --- (These 3 salt-calls can be moved to a Salt SLS file)
 Write-Host ""
-Write-Host "Retrieving winrepo"
-Invoke-Expression -Command ".\salt-call.bat --config-dir=$confRoot winrepo.update_git_repos"
+Write-Host "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+Write-Host "~~~ Retrieving SaltStack's Winrepo resources"
+Write-Host "~~~"
+Invoke-Expression -Command ".\salt-call.bat --config-dir=$confRoot winrepo.update_git_repos | Out-Null"
+Write-Host "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+Write-Host ""
 
-# Update the winrepo database
+# Update the Winrepo Database
 Write-Host ""
-Write-Host "Gen winrepo"
-Invoke-Expression -Command ".\salt-call.bat --config-dir=$confRoot winrepo.genrepo"
+Write-Host "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+Write-Host "~~~ Gen Winrepo"
+Write-Host "~~~"
+Invoke-Expression -Command ".\salt-call.bat --config-dir=$confRoot winrepo.genrepo | Out-Null"
+Write-Host "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+Write-Host ""
 
 # Refresh the pkg DB
 Write-Host ""
-Write-Host "Refreshing Package DB"
-Invoke-Expression -Command ".\salt-call.bat --config-dir=$confRoot pkg.refresh_db"
+Write-Host "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+Write-Host "~~~ Refreshing Winrepo Package DB "
+Write-Host "~~~  (expecting some 'intellij' Package DB compile errors)"
+Write-Host "~~~"
+Invoke-Expression -Command ".\salt-call.bat --config-dir=$confRoot pkg.refresh_db | Out-Null"
+Write-Host "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+Write-Host ""
 
 ##
-# Invoke Salt to do the rest of the installation....
+# Invoke Salt to do the rest of the bootstrap....
 
 Write-Host ""
-Write-Host "Executing Salt states to ensure VirtualBox, Vagrant, etc. are installed on Windows"
-echo ".\salt-call.bat --config-dir=$confRoot --metadata state.highstate pillar=`"{'PROGRAM_FILES': '$saltProgramFiles', 'LAMINAR_DIR': '$saltPSScriptRoot', 'HOME_PATH': '$saltHomePath', 'VBOX_DIR': '$saltVboxDir' }`" -l info"
-Invoke-Expression -Command ".\salt-call.bat --config-dir=$confRoot --metadata state.highstate pillar=`"{'PROGRAM_FILES': '$saltProgramFiles', 'LAMINAR_DIR': '$saltPSScriptRoot', 'HOME_PATH': '$saltHomePath', 'VBOX_DIR': '$saltVboxDir' }`" -l info"
+Write-Host ""
+Write-Host "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+Write-Host "~~~ Running Salt states to ensure VirtualBox, Vagrant, etc. are installed & wired on Windows"
+Write-Host "~~~"
+Write-Host "~~~ These SaltStack states will take about 20 minutes to run..."
+Write-Host "~~~"
+Write-Host "~~~ The salt-call command completing the bootstrap: "
+Write-Host "~~~"
+Write-Host ""
+echo ".\salt-call.bat --config-dir=$confRoot --metadata state.highstate pillar=`"{'PROGRAM_FILES': '$saltProgramFiles', 'LAMINAR_DIR': '$saltPSScriptRoot', 'HOME_PATH': '$saltHomePath', 'VBOX_DIR': '$saltVboxDir' }`" -l warning"
+Write-Host ""
+Write-Host "~~~"
+Write-Host "~~~"
+Write-Host "~~~ Starting the run now..."
+Write-Host "~~~  - Expecting Salt Winrepo package errors - 'duplicati' not defined as a dictionary and 'intellij' again"
+Write-Host "~~~  - The Virtualbox Winrepo package indicates an error for a successful install status"
+Write-Host "~~~  - If you are running Powershell less than version 4, there will be an error on the instal of "dvm"
+Write-Host "~~~     This refers to Docker Version Manager which has not been needed to date,"
+Write-Host "~~~     but is provided as a possible convenience."
+Write-Host "~~~"
+Write-Host ""
+Write-Host ""
+Invoke-Expression -Command ".\salt-call.bat --config-dir=$confRoot --metadata state.highstate pillar=`"{'PROGRAM_FILES': '$saltProgramFiles', 'LAMINAR_DIR': '$saltPSScriptRoot', 'HOME_PATH': '$saltHomePath', 'VBOX_DIR': '$saltVboxDir' }`" -l warning"
 
 
 ##

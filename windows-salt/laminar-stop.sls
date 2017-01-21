@@ -1,6 +1,11 @@
 {% set PROGRAM_FILES =  pillar['PROGRAM_FILES'] %}
 {% set LAMINAR_DIR   =  pillar['LAMINAR_DIR'] %}
 {% set HOME_PATH     =  pillar['HOME_PATH'] %}
+
+#
+# Halt Vagrant; Stop the Registry and Minikube cluster
+#
+ 
     myService-down:
       cmd.run:
         - name: 'vagrant halt'
@@ -15,8 +20,12 @@
         - cwd: '{{ LAMINAR_DIR }}'
     minikube-down:
       cmd.run:
-        - name: '.\minikube stop'
-        - cwd: '{{ HOME_PATH }}/minikube'
+        - name: 'minikube.ps1 stop'
+        - source: '{{ HOME_PATH }}/minikube/minikube.ps1'
+        - cwd: "{{ HOME_PATH }}/minikube"
+        - shell: powershell
+        - env: 
+          - ExecutionPolicy: ByPass
     v-global-status:
       cmd.run:
         - name: 'vagrant global-status'

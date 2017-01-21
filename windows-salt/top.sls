@@ -1,3 +1,8 @@
+
+#
+# The bulk of Laminar bootstap
+#
+
 base:
  '*':
   - virtualbox

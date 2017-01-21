@@ -1,6 +1,12 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+DOCKER_HOST_NAME = "vagrant-dockerhost"
+
+if Vagrant.has_plugin?("vagrant-auto_network")
+  AutoNetwork.default_pool = '172.17.0.0/24'
+end
+
 # All Vagrant configuration is done below. The "2" in Vagrant.configure
 # configures the configuration version (we support older styles for
 # backwards compatibility). Please don't change it unless you know what
@@ -9,6 +15,11 @@ Vagrant.configure("2") do |config|
   # The most common configuration options are documented and commented below.
   # For a complete reference, please see the online documentation at
   # https://docs.vagrantup.com.
+  
+  config.vm.provision "fix-no-tty", type: "shell" do |s|
+    s.privileged = false
+    s.inline = "sudo sed -i '/tty/!s/mesg n/tty -s \\&\\& mesg n/' /root/.profile"
+  end 
 
   config.vm.provision "docker"
 
@@ -18,9 +29,20 @@ Vagrant.configure("2") do |config|
   config.vm.provision "shell", inline:
     "ps aux | grep 'sshd:' | awk '{print $2}' | xargs kill"
 
+  # The hostmanager plugin dynamically adds and removes an entry to the host file
+  # as vagrant_dockerhost activates and deactivates
+  if Vagrant.has_plugin?("vagrant-hostmanager")
+    config.hostmanager.enabled = true
+    config.hostmanager.manage_host = true
+    config.hostmanager.ignore_private_ip = false
+    config.hostmanager.include_offline = true
+    config.hostmanager.aliases = %w(myHost #{DOCKER_HOST_NAME})
+  end
+
+
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://atlas.hashicorp.com/search.
-  config.vm.define "vagrant-dockerhost"
+  config.vm.define "#{DOCKER_HOST_NAME}"
   config.vm.box = "ubuntu/trusty64"
 
   # Disable automatic box update checking. If you disable this, then
@@ -31,16 +53,31 @@ Vagrant.configure("2") do |config|
   # Create a forwarded port mapping which allows access to a specific port
   # within the machine from a port on the host machine. In the example below,
   # accessing "localhost:8080" will access port 80 on the guest machine.
-  ## TR ## config.vm.network "forwarded_port", guest: 80, host: 8080
 
-  # Create a private network, which allows host-only access to the machine
-  # using a specific IP.
+  ## Forwarded ports are added here:
+  config.vm.network "forwarded_port", guest: 8501, host: 8501
+
+  ##
+  # Networks: private, public or internal (virtualbox__intnet: true)
+  # Using a specific IP or DHCP.
+
   # config.vm.network "private_network", ip: "192.168.33.10"
+  # config.vm.network "private_network", type: "dhcp"
+
+  # config.vm.network "private_network", type: "dhcp"
+  # config.vm.network "private_network", ip: "192.168.33.10",
+  #  virtualbox__intnet: true
+  # config.vm.network "private_network", :auto_network >= true
 
   # Create a public network, which generally matched to bridged network.
   # Bridged networks make the machine appear as another physical device on
   # your network.
   # config.vm.network "public_network"
+
+  # Using the auto_network plugin with a private network
+  if Vagrant.has_plugin?("vagrant-auto_network")
+    config.vm.network :private_network, :auto_network => true
+  end
 
   # Share an additional folder to the guest VM. The first argument is
   # the path on the host to the actual folder. The second argument is
@@ -54,12 +91,26 @@ Vagrant.configure("2") do |config|
   #
    config.vm.provider "virtualbox" do |vb|
      # Display the VirtualBox GUI when booting the machine
-     vb.name = "vagrant-dockerhost" ## TR - presented lock ups when name was "dockerhost"
+     vb.name = "#{DOCKER_HOST_NAME}" 
      vb.gui = true
   
      # Customize the amount of memory on the VM:
      vb.memory = "4096"
    end
+  
+  ###
+  # Simulating this...
+  #   config.vm.network :forwarded_port, guest: 8501, host: 8501
+  # by mapping to...
+  #   VBoxManage controlvm "VM name" natpf1 "guestname,tcp,,host_port,,guest_port"
+  # From: http://www.thehorrors.org.uk/snippets/vagrant-virtualbox-forward-port-on-running-vm/
+  ###
+
+#  config.vm.provider "virtualbox" do |v|
+#    v.customize ["controlvm", "#{DOCKER_HOST_NAME}", "--natpf1", "ui2,tcp,,8502,,8502"]
+#    v.customize ["controlvm", "#{DOCKER_HOST_NAME}", "--natpf1", "ui3,tcp,,8503,,8503"]
+#  end 
+ 
   #
   # View the documentation for the provider you are using for more
   # information on available options.
@@ -78,7 +129,9 @@ Vagrant.configure("2") do |config|
   #   apt-get update
   #   apt-get install -y apache2
   # SHELL
-  
+ 
+  ##
+  # Using SaltStack for provisioning the vagrant-dockerhost VM 
   # Provision saltstack in the VM
   config.vm.provision :salt do |salt|
     salt.masterless = true

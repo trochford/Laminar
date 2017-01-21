@@ -1,15 +1,14 @@
 <# 
 .SYNOPSIS 
-	Set the private Docker "registry" IP address into myReg environment variable
+	Gets the Vagrant ID of vagrant-dockerhost
 .DESCRIPTION 
-	Calls "docker-machine ip registory".  Sets myReg in the User namespace
+	Calls vagrant global-status indirectly
 .EXAMPLE
 	cd <Laminar root directory>\windows-salt  - e.g. cd c:\Laminar\windows-salt
-	.\saveRegIPInEnvVar.ps1
+	.\getDockerHostId.ps1
 
 .NOTES
-	Uses [Environment]::SetEnvironmentVarialble.  Other approaches do not
-	reliably allow for getting the value in the same Powershell session.
+	Uses globalStatusData.ps1
 	
 	Author     : Tim Rochford - trochford-gh@gmail.com
 .LINK 
