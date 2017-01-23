@@ -67,10 +67,20 @@
 
 $runningNoLogOutput = $FALSE  # Assume false and prove true
 
-$PSScriptRoot = Split-Path -Parent -Path $MyInvocation.MyCommand.Definition
+##
+# $PSScriptRoot holds the name of the directory where this script resides
+# Effectively that is the Laminar directory
+# $PSScriptRootNSE - the directory name - Not Space Escaped
+
+  $PSScriptRootNSE = Split-Path -Parent -Path $MyInvocation.MyCommand.Definition 
+
+# Invoke-Expression requires escaping of embedded quotes
+
+  $PSScriptRoot = $PSScriptRootNSE.Replace(' ','` ') # for directory names with spaces
+
 
 echo "Running Laminar.... " $args[0] |
-  tee -filepath "$PSScriptRoot\output0.txt" | Out-String -stream | Out-Host;
+  tee -filepath "$PSScriptRootNSE\output0.txt" | Out-String -stream | Out-Host;
 
 
 # Dispatch the sub-command
@@ -79,8 +89,8 @@ switch ($args[0]) {
   "bootstrap"   { 
                   Invoke-Expression "$($PSScriptRoot)\bootstrap.ps1 2>&1 |
                     tee -filepath $($PSScriptRoot)\output1.txt | Out-String -stream | Out-Host";
-                  echo "" > $PSScriptRoot\output2.txt;
-                  echo "" > $PSScriptRoot\output3.txt;
+                  echo "" > $PSScriptRootNSE\output2.txt;
+                  echo "" > $PSScriptRootNSE\output3.txt;
 
                   # Set myReg to be available in the shell calling this script
                   & { $global:myReg = [Environment]::GetEnvironmentVariable("myReg", "User") }
@@ -98,8 +108,8 @@ switch ($args[0]) {
   "up"          { 
                   Invoke-Expression "$($PSScriptRoot)\saltcall.ps1 state.apply laminar-up 2>&1 | 
                      tee -filepath $($PSScriptRoot)\output1.txt | Out-String -stream | Out-Host";
-                  echo "" > $PSScriptRoot\output2.txt;
-                  echo "" > $PSScriptRoot\output3.txt;
+                  echo "" > $PSScriptRootNSE\output2.txt;
+                  echo "" > $PSScriptRootNSE\output3.txt;
                   # Set myReg to be available in the shell calling this script
                   & { $global:myReg = [Environment]::GetEnvironmentVariable("myReg", "User") }
                 }
@@ -108,23 +118,23 @@ switch ($args[0]) {
                 }
   "start"       { Invoke-Expression ".$($PSScriptRoot)\saltcall.ps1 state.apply laminar-start 2>&1 |
                      tee -filepath $($PSScriptRoot)\output1.txt | Out-String -stream | Out-Host";
-                  echo "" > $PSScriptRoot\output2.txt;
-                  echo "" > $PSScriptRoot\output3.txt;
+                  echo "" > $PSScriptRootNSE\output2.txt;
+                  echo "" > $PSScriptRootNSE\output3.txt;
                 }
   "env"         { $runningNoLogOutput = $TRUE;
                   & { $global:myReg = [Environment]::GetEnvironmentVariable("myReg", "User") };
                 }
   "stop"        { Invoke-Expression "$($PSScriptRoot)\saltcall.ps1 state.apply laminar-stop 2>&1 |
                      tee -filepath $($PSScriptRoot)\output1.txt | Out-String -stream | Out-Host";
-                  echo "" > $PSScriptRoot\output2.txt;
-                  echo "" > $PSScriptRoot\output3.txt;
+                  echo "" > $PSScriptRootNSE\output2.txt;
+                  echo "" > $PSScriptRootNSE\output3.txt;
                 }
   "down"        { 
                   Invoke-Expression "$($PSScriptRoot)\saltcall.ps1 state.apply laminar-stop 2>&1 |
                      tee -filepath $($PSScriptRoot)\output1.txt | Out-String -stream | Out-Host";
                   Invoke-Expression "$($PSScriptRoot)\saltcall.ps1 state.apply laminar-clean 2>&1 |
                      tee -filepath $($PSScriptRoot)\output2.txt | Out-String -stream | Out-Host";
-                  echo "" > $PSScriptRoot\output3.txt;
+                  echo "" > $PSScriptRootNSE\output3.txt;
                 }
   "remove"      { 
                   Invoke-Expression "$($PSScriptRoot)\saltcall.ps1 state.apply laminar-stop 2>&1 |
@@ -150,20 +160,20 @@ switch ($args[0]) {
                   $newProcessPaths = $userPaths + $machinePaths 
                   [Environment]::SetEnvironmentVariable('Path', $newProcessPaths -join ';', 'Process')
                 }
-  default       { & get-help $PSScriptRoot\laminar.ps1; $runningNoLogOutput = $TRUE }
+  default       { & get-help $PSScriptRootNSE\laminar.ps1; $runningNoLogOutput = $TRUE }
 }
 
 
 if ( -not $runningNoLogOutput ) {
 
-  cat $PSScriptRoot\output0.txt, $PSScriptRoot\output1.txt, 
-     $PSScriptRoot\output2.txt, $PSScriptRoot\output3.txt | 
-     out-file -encoding ascii -filepath $PSScriptRoot\output.txt
+  cat $PSScriptRootNSE\output0.txt, $PSScriptRootNSE\output1.txt, 
+     $PSScriptRootNSE\output2.txt, $PSScriptRootNSE\output3.txt | 
+     out-file -encoding ascii -filepath $PSScriptRootNSE\output.txt
 
-  rm $PSScriptRoot\output0.txt, $PSScriptRoot\output1.txt, $PSScriptRoot\output2.txt, $PSScriptRoot\output3.txt
+  rm $PSScriptRootNSE\output0.txt, $PSScriptRootNSE\output1.txt, $PSScriptRootNSE\output2.txt, $PSScriptRootNSE\output3.txt
 
-  less $PSScriptRoot\output.txt 
+  less $PSScriptRootNSE\output.txt 
 
 } else {
-  rm $PSScriptRoot\output0.txt  # Always created upon Laminar invocation
+  rm $PSScriptRootNSE\output0.txt  # Always created upon Laminar invocation
 }

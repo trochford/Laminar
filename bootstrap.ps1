@@ -58,7 +58,8 @@ foreach ( $v in $PSVersionTable.PSCompatibleVersions ) {
 }
 if ( -not $isCompatibleWithSaltstack ) {
     Write-Host ""
-    Write-Host "Saltstack has some modules that depend on Powershell version 3 or greater.  Probably wise to upgrade."
+    Write-Host "Saltstack has some modules that depend on Powershell version 3 or greater.  Probably wise to upgrade,"
+    Write-Host "but Laminar runs successfully with Powershell 2."
     #return
 }
 
@@ -183,7 +184,7 @@ Write-Host ""
 Write-Host "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 Write-Host "~~~ Retrieving SaltStack's Winrepo resources"
 Write-Host "~~~"
-Invoke-Expression -Command ".\salt-call.bat --config-dir=$confRoot winrepo.update_git_repos | Out-Null"
+Invoke-Expression -Command ".\salt-call.bat --config-dir=""$confRoot"" winrepo.update_git_repos | Out-Null"
 Write-Host "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 Write-Host ""
 
@@ -192,7 +193,7 @@ Write-Host ""
 Write-Host "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 Write-Host "~~~ Gen Winrepo"
 Write-Host "~~~"
-Invoke-Expression -Command ".\salt-call.bat --config-dir=$confRoot winrepo.genrepo | Out-Null"
+Invoke-Expression -Command ".\salt-call.bat --config-dir=""$confRoot"" winrepo.genrepo | Out-Null"
 Write-Host "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 Write-Host ""
 
@@ -202,7 +203,7 @@ Write-Host "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Write-Host "~~~ Refreshing Winrepo Package DB "
 Write-Host "~~~  (expecting some 'intellij' Package DB compile errors)"
 Write-Host "~~~"
-Invoke-Expression -Command ".\salt-call.bat --config-dir=$confRoot pkg.refresh_db | Out-Null"
+Invoke-Expression -Command ".\salt-call.bat --config-dir=""$confRoot"" pkg.refresh_db | Out-Null"
 Write-Host "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 Write-Host ""
 
@@ -219,7 +220,7 @@ Write-Host "~~~"
 Write-Host "~~~ The salt-call command completing the bootstrap: "
 Write-Host "~~~"
 Write-Host ""
-echo ".\salt-call.bat --config-dir=$confRoot --metadata state.highstate pillar=`"{'PROGRAM_FILES': '$saltProgramFiles', 'LAMINAR_DIR': '$saltPSScriptRoot', 'HOME_PATH': '$saltHomePath', 'VBOX_DIR': '$saltVboxDir' }`" -l warning"
+echo ".\salt-call.bat --config-dir=""$confRoot"" --metadata state.highstate pillar=`"{'PROGRAM_FILES': '$saltProgramFiles', 'LAMINAR_DIR': '$saltPSScriptRoot', 'HOME_PATH': '$saltHomePath', 'VBOX_DIR': '$saltVboxDir' }`" -l warning"
 Write-Host ""
 Write-Host "~~~"
 Write-Host "~~~"
@@ -232,7 +233,7 @@ Write-Host "~~~     but is provided as a possible convenience."
 Write-Host "~~~"
 Write-Host ""
 Write-Host ""
-Invoke-Expression -Command ".\salt-call.bat --config-dir=$confRoot --metadata state.highstate pillar=`"{'PROGRAM_FILES': '$saltProgramFiles', 'LAMINAR_DIR': '$saltPSScriptRoot', 'HOME_PATH': '$saltHomePath', 'VBOX_DIR': '$saltVboxDir' }`" -l warning"
+Invoke-Expression -Command ".\salt-call.bat --config-dir=""$confRoot"" --metadata state.highstate pillar=`"{'PROGRAM_FILES': '$saltProgramFiles', 'LAMINAR_DIR': '$saltPSScriptRoot', 'HOME_PATH': '$saltHomePath', 'VBOX_DIR': '$saltVboxDir' }`" -l warning"
 
 
 ##

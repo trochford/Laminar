@@ -34,7 +34,9 @@ $pillarOveride = $False
 foreach ($i in $args)
     { If ($i.StartsWith("pillar")) { $pillarOverride = $True } }
 
-$PSScriptRoot = Split-Path -Parent -Path $MyInvocation.MyCommand.Definition
+$PSScriptRootNSE = Split-Path -Parent -Path $MyInvocation.MyCommand.Definition 
+$PSScriptRoot = Split-Path -Parent -Path $MyInvocation.MyCommand.Definition 
+# Invoke-Expression requires escaping of embedded quotes
 
 # Dispatch the sub-command
 switch ($args[0]) {

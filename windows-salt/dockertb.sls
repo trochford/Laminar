@@ -56,7 +56,7 @@
         - cwd: '{{ PROGRAM_FILES }}\Docker Toolbox'
     add_vbox_sharedfolder:
       cmd.run: 
-        - name: '"{{ VBOX_DIR }}/VBoxManage.exe" sharedfolder add registry --name /var/lib/registry --hostpath {{ LAMINAR_DIR }}/registry --automount'
+        - name: '"{{ VBOX_DIR }}/VBoxManage.exe" sharedfolder add registry --name /var/lib/registry --hostpath "{{ LAMINAR_DIR }}/registry" --automount'
     start_registry:
       cmd.run:
         - name: 'docker-machine start registry'
