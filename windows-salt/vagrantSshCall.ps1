@@ -34,6 +34,14 @@ $newProcessPaths = $userPaths + $machinePaths
 $bashCmd = 'echo DOCKER_OPTS="--insecure-registry=' + $ip + '" >> /etc/default/docker'
 $vagrantCmd = "sudo bash -c '" + $bashCmd + "'"
 
+# Passing the path to the Laminar directory as an argument possibly with embedded spaces
+# If spaces are embedded, the path will be split across multiple args 
+# So we join all the args together will and embedded string
+# The Salt cwd parm of the cmd state doesn't seem to handle quoting correctly
+$lmrDir = [system.String]::Join(" ", $args)
+
+cd "$lmrDir/vagrantShare"  # Change to the vagrantShare directory
+
 vagrant ssh -c  $vagrantCmd
 
 vagrant ssh -c "sudo restart docker"

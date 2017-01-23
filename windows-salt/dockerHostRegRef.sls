@@ -14,8 +14,9 @@
     reference-registry:
       cmd.script:
         - name: 'vagrantSshCall.ps1'
-        - source: {{ LAMINAR_DIR }}\windows-salt\vagrantSshCall.ps1
-        - cwd: {{ LAMINAR_DIR }}/vagrantShare
+        - source: '{{ LAMINAR_DIR }}/windows-salt/vagrantSshCall.ps1'
+        - cwd: '/' # actually directory will be reset in the script to vagrantShare
+        - args: '{{ LAMINAR_DIR }}'
         - shell: powershell
         - env: 
           - ExecutionPolicy: ByPass

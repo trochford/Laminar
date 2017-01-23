@@ -25,6 +25,14 @@ $machinePaths    = [Environment]::GetEnvironmentVariable('Path', 'Machine') -spl
 $newProcessPaths = $userPaths + $machinePaths
 [Environment]::SetEnvironmentVariable('Path', $newProcessPaths -join ';', 'Process')
 
+# Passing the path to the Laminar directory as an argument possibly with embedded spaces
+# If spaces are embedded, the path will be split across multiple args 
+# So we join all the args together will and embedded string
+# The Salt cwd parm of the cmd state doesn't seem to handle quoting correctly
+$lmrDir = [system.String]::Join(" ", $args)
+
+cd "$lmrDir/windows-salt"  # Change to the windows-salt directory
+
 $MY_REG_PORT = 86
 
 $regIpOut = & docker-machine ip registry
