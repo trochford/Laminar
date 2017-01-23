@@ -70,7 +70,7 @@ $runningNoLogOutput = $FALSE  # Assume false and prove true
 $PSScriptRoot = Split-Path -Parent -Path $MyInvocation.MyCommand.Definition
 
 echo "Running Laminar.... " $args[0] |
-  tee -filepath "$PSScriptRoot\output0.txt" ;
+  tee -filepath "$PSScriptRoot\output0.txt" | Out-String -stream | Out-Host;
 
 
 # Dispatch the sub-command
