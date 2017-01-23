@@ -35,6 +35,10 @@
         - name: 'docker-machine ls'
         - cwd: '{{ LAMINAR_DIR }}'
     z-minikube-status:
-      cmd.run:
-        - name: 'minikube status'
-        - cwd: '{{ LAMINAR_DIR }}'
+      cmd.script:
+        - name: 'minikube.ps1 status'
+        - source: '{{ HOME_PATH }}/minikube/minikube.ps1'
+        - cwd: "{{ HOME_PATH }}/minikube"
+        - shell: powershell
+        - env: 
+          - ExecutionPolicy: ByPass
