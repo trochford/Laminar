@@ -19,7 +19,7 @@
         - name: 'docker-machine stop registry'
         - cwd: '{{ LAMINAR_DIR }}'
     minikube-down:
-      cmd.run:
+      cmd.script:
         - name: 'minikube.ps1 stop'
         - source: '{{ HOME_PATH }}/minikube/minikube.ps1'
         - cwd: "{{ HOME_PATH }}/minikube"

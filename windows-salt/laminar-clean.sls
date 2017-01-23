@@ -21,7 +21,7 @@
         - name: 'docker-machine rm registry -f'
         - cwd: '{{ LAMINAR_DIR }}'
     minikube-clean:
-      cmd.run:
+      cmd.script:
         - name: 'minikube.ps1 delete'
         - source: '{{ HOME_PATH }}/minikube/minikube.ps1'
         - cwd: "{{ HOME_PATH }}/minikube"

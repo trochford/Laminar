@@ -19,9 +19,13 @@
         - name: 'docker-machine start registry'
         - cwd: '{{ LAMINAR_DIR }}'
     minikube-start:
-      cmd.run:
-        - name: 'minikube up'
-        - cwd: '{{ HOME_PATH }}/minikube'
+      cmd.script:
+        - name: 'minikube.ps1 up'
+        - source: '{{ HOME_PATH }}/minikube/minikube.ps1'
+        - cwd: "{{ HOME_PATH }}/minikube"
+        - shell: powershell
+        - env: 
+          - ExecutionPolicy: ByPass
     v-global-status:
       cmd.run:
         - name: 'vagrant global-status'
