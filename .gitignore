@@ -2,7 +2,7 @@
 /vagrantShare/.vagrant
 
 
-/windows-salt/conf/minion
+windows-salt/conf/minion
 tmp*.ps1
 output.txt
 output0.txt
