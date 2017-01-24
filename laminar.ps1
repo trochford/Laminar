@@ -116,7 +116,7 @@ switch ($args[0]) {
   "kubeup"      { $runningNoLogOutput = $TRUE;
                   & minikube up
                 }
-  "start"       { Invoke-Expression ".$($PSScriptRoot)\saltcall.ps1 state.apply laminar-start 2>&1 |
+  "start"       { Invoke-Expression "$($PSScriptRoot)\saltcall.ps1 state.apply laminar-start 2>&1 |
                      tee -filepath $($PSScriptRoot)\output1.txt | Out-String -stream | Out-Host";
                   echo "" > $PSScriptRootNSE\output2.txt;
                   echo "" > $PSScriptRootNSE\output3.txt;
