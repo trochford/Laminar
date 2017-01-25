@@ -48,6 +48,7 @@ More complicated Laminar commands capture log information during the command exe
 * *Enter:* laminar status *- to see the status of Vagrant, Docker Machine and Minikube*
 
 The status will look like this:
+```
 Running Laminar....
 status
 
@@ -77,7 +78,7 @@ minikubeVM: Running
 localkube: Running
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
+```
 #### General Information
 The Ubuntu image loaded will be Trusty64 from Hashicorp provided without a Desktop GUI.  The directory shared between Windows and the Ubuntu image is vagrantShare.   
 * *Windows -* \<Laminar Dir\>\vagrantShare
