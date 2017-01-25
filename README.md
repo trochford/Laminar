@@ -43,26 +43,26 @@ The Ubuntu image loaded will be Trusty64 from Hashicorp provided without a Deskt
 
 The vagrant user credentials are the defaults - User: vagrant ; Password: vagrant
 
-The VirtualBox console GUI will be initiated during the running of the boot script.  A container running bash in the light-weight Phusion container optimzed Ubuntu will be running in Docker inside vagrant-dockerhost. Upon completion of the boot script, Docker can be tested with the Docker hello-world image:
+The VirtualBox console GUI will be initiated during the running of the boot script.  A container running bash in the light-weight Phusion container (optimzed Ubuntu for Docker) will be running in a Docker container inside vagrant-dockerhost. Upon completion of the boot script, Docker can be tested with the Docker hello-world image:
 * *Enter:* sudo docker run hello-world
 or 
-* *Enter"* sudo docker attach Ubunto 
+* *Enter"* sudo docker attach Phusion 
 
 There will be two Vagrant providers running: one for Docker and one for the Ubuntu host.  To destroy them, two Vagrant Destroy commands will be needed:
-* *At the Window prompt, enter:* vagrant destroy *- will tear down the Docker provider "myService"*
-* *and then, enter:* vagrant global-status *- to find the ID of the VirtualBox provider "dockerhost"*
-* *and then, enter:* vagrant destroy {dockerhost ID} 
+* *At the Window prompt, cd vagrantShare/myService, then enter:* vagrant destroy *- will tear down the Docker provider "myService"*
+* *and then, cd ..  *- up to vagrantShare*
+* *and then, enter:* vagrant destroy  
 
 Tested on Windows 7 and Windows 10.
 
-For sessions subsequent to the initial running of the boot script, the Ubuntu image can be started in the standard Vagrant fashion:
-* *In a CMD shell, enter:* cd c:\Laminar\vagrantShare
+For sessions subsequent to the initial running of the boot script, the "vagrant-dockerhost" image can be started in the standard Vagrant fashion:
+* *In a CMD shell, enter:* cd [...]\vagrantShare
 * *Enter:* vagrant up
 
 ### Laminar Help
 
 SYNOPSIS
-    Dispatches a Laminar request to seven sub-commands.
+    Dispatches a Laminar request to nine sub-commands.
 
     Sub-commands include:
         - bootstrap
