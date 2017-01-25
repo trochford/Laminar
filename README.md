@@ -46,10 +46,10 @@ The vagrant user credentials are the defaults - User: vagrant ; Password: vagran
 The VirtualBox console GUI will be initiated during the running of the boot script.  A container running bash in the light-weight Phusion container (optimzed Ubuntu for Docker) will be running in a Docker container inside vagrant-dockerhost. Upon completion of the boot script, Docker can be tested with the Docker hello-world image:
 * *Enter:* sudo docker run hello-world
 or 
-* *Enter"* sudo docker attach Phusion 
+* *Enter:* sudo docker attach Phusion 
 
 There will be two Vagrant providers running: one for Docker and one for the Ubuntu host.  To destroy them, two Vagrant Destroy commands will be needed:
-* *At the Window prompt: *cd vagrantShare/myService*, then enter:* vagrant destroy *- will tear down the Docker provider "myService"*
+* *At the Window prompt:* cd vagrantShare/myService *, then enter:* vagrant destroy *- will tear down the Docker provider "myService"*
 * *and then, enter:* cd ..  *- up to vagrantShare*
 * *and then, enter:* vagrant destroy  
 
