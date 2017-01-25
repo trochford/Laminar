@@ -18,14 +18,17 @@ Both the Vagrant Dockerhost and Windows will be configured with an environment v
 
 
 #### Download
-* Clone or download and extract project into a local directory, e.g. c:\Laminar or c:\Users\Alice.
+* Clone (if you have Git) or download and extract project into a local directory, e.g. c:\Laminar or c:\Users\Alice\Laminar.
+
+#### Ensure BIOS is set for hardware virtualization
+VirtualBox will require enabling Hardware Virtualization support in the Bios settings of the host machine.
 
 #### Usage: To get started...
 
 1. *Open a Powershell in Windows run as administrator*
 2. *Enter:* Set-ExecutionPolicy Unrestricted
 3. *Enter:* cd [where you want Laminar to live]
-4. *Enter:* git clone https://github.com/trochford/Laminar.git
+4. *Enter:* git clone https://github.com/trochford/Laminar.git  *or* extract downloaded Laminar zipfile
 5. *Enter:* cd [the Laminar cloned directory]
 6. *Enter:* .\laminar bootstrap
 
@@ -35,7 +38,13 @@ Both the Vagrant Dockerhost and Windows will be configured with an environment v
 
 When Git is installing, choose the defaults provided.
 
-VirtualBox will require enabling Hardware Virtualization support in the Bios settings of the host machine.
+#### Exit the log browser
+More complicated Laminar commands capture log information during the command execution. Those commands automatically load the log (a file created in the Laminar directory called "output.txt") in the "less" terminal pager program - a read-only terminal browser.  The most useful information tends to be a the bottom of the log where the SaltStack (the configuration work-horse) provides a report.  Typing a capital "G" jumps you to the end of the log.
+
+*Exit the log browsing by typing:* q
+
+*Enter:* laminar * - to see the Laminar command set*
+*Enter:* 
 
 The Ubuntu image loaded will be Trusty64 from Hashicorp provided without a Desktop GUI.  The directory shared between Windows and the Ubuntu image is vagrantShare.   
 * *Windows -* \<Laminar Dir\>\vagrantShare
