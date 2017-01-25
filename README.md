@@ -48,11 +48,11 @@ The VirtualBox console GUI will be initiated during the running of the boot scri
 or 
 * *Enter:* sudo docker attach Phusion 
 
-There will be two Vagrant providers running: one for Docker and one for the Ubuntu host.  To destroy them, two Vagrant Destroy commands will be needed:
-* *At the Window prompt:* cd vagrantShare/myService 
-* *then enter:*           vagrant destroy *- will tear down the Docker provider "myService"*
-* *and then, enter:*      cd ..           *- up to vagrantShare*
-* *and then, enter:*      vagrant destroy  
+There will be two Vagrant providers running: one for Docker and one for the Ubuntu host.  To destroy both of them, two Vagrant destroy commands will be needed. In the Laminar directory:
+* cd vagrantShare/myService 
+* vagrant destroy *- will tear down the Docker provider "myService"*
+* cd ..           *- up to vagrantShare*
+* vagrant destroy *- will tear down "vagrant-dockerhost"* 
 
 Tested on Windows 7 and Windows 10.
 
