@@ -45,6 +45,7 @@ More complicated Laminar commands capture log information during the command exe
 
 #### Help
 * *Enter:* laminar *- to see the Laminar command set*
+* *Enter:* help [Powershell script file] *- to see help for that script file - e.g: help .\saltcall.ps1*
 
 #### Checking status
 * *Enter:* laminar status *- to see the status of Vagrant, Docker Machine and Minikube*
