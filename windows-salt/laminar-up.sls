@@ -22,22 +22,30 @@
       cmd.run:
         - name: 'docker-machine start registry'
         - cwd: '{{ LAMINAR_DIR }}'
+    gen-registry-certs:
+      cmd.run:
+        - name: 'docker-machine regenerate-certs -f registry'
+        - cwd: '{{ LAMINAR_DIR }}'
+        - onfail:
+          - cmd: registry-up
     set_registry_ip:
       cmd.script:
         - name: 'saveRegIpInEnvVar.ps1'
         - source: '{{ LAMINAR_DIR }}/windows-salt/saveRegIpInEnvVar.ps1'
+        - cwd: '/' # actually directory will be reset in the called script
+        - args: '{{ LAMINAR_DIR }}'
         - shell: powershell
-        - cwd: {{ LAMINAR_DIR }}/windows-salt
         - env: 
           - ExecutionPolicy: ByPass
     reference-registry:
       cmd.script:
         - name: 'vagrantSshCall.ps1'
-        - source: {{ LAMINAR_DIR }}\windows-salt\vagrantSshCall.ps1
+        - source: '{{ LAMINAR_DIR }}/windows-salt/vagrantSshCall.ps1'
+        - cwd: '/' # actually directory will be reset in the script to vagrantShare
+        - args: '{{ LAMINAR_DIR }}'
         - shell: powershell
         - env: 
           - ExecutionPolicy: ByPass
-        - cwd: {{ LAMINAR_DIR }}/windows-salt
     minikube-up:
       cmd.script:
         - name: 'minikube.ps1 up'

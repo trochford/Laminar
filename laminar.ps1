@@ -9,6 +9,7 @@
 		- kubeup
 		- start
 		- env
+		- status
 		- stop
 		- down
 		- remove
@@ -31,6 +32,9 @@
 	  - env
 	    Sets the shell variable $myReg .
 
+	  - status
+	    Provides the status of Vagrant, Docker Machine and Minikube.
+
 	  - stop
 	    Deactivates the underlying Laminar toolsets - used to free up compute resources on your physical machine.
 
@@ -47,7 +51,7 @@
 	In a Powershell with Admin privileges...
 
 	cd <Laminar root directory>  - e.g. cd c:\Laminar
-	.\laminar < bootstrap | up | kubeup | start | env | stop | down | remove >
+	.\laminar < bootstrap | up | kubeup | start | status | env | stop | down | remove >
 
 .NOTES
 	Laminar Toolset:
@@ -66,6 +70,10 @@
 #> 
 
 $runningNoLogOutput = $FALSE  # Assume false and prove true
+
+# ... for status commmand output.
+$borderEnd = "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+
 
 ##
 # $PSScriptRoot holds the name of the directory where this script resides
@@ -120,6 +128,23 @@ switch ($args[0]) {
                      tee -filepath $($PSScriptRoot)\output1.txt | Out-String -stream | Out-Host";
                   echo "" > $PSScriptRootNSE\output2.txt;
                   echo "" > $PSScriptRootNSE\output3.txt;
+                }
+  "status"      { $runningNoLogOutput = $TRUE;
+                  echo ""
+                  echo "~~~ Vagrant            $borderEnd"
+                  echo ""
+                  & vagrant global-status 
+                  echo ""
+                  echo "~~~ Docker Machine     $borderEnd"
+                  echo ""
+                  & docker-machine ls
+                  echo ""
+                  echo "~~~ minikube           $borderEnd"
+                  echo ""
+                  & minikube status
+                  echo ""
+                  echo "~~~~~~~~~~~~~~~~~~~~~~~$borderEnd"
+                  echo ""
                 }
   "env"         { $runningNoLogOutput = $TRUE;
                   & { $global:myReg = [Environment]::GetEnvironmentVariable("myReg", "User") };

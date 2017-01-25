@@ -31,8 +31,13 @@
 # Assume there is no pillar override in #args and prove wrong
 $pillarOveride = $False
 
+$logLevel = "info" # Convenient spot to switch log levels
+
 foreach ($i in $args)
-    { If ($i.StartsWith("pillar")) { $pillarOverride = $True } }
+    { 
+      If ($i.StartsWith("pillar")) { $pillarOverride = $True } 
+      If ($i.StartsWith("quiet")) { $logLevel = "error" } 
+    }
 
 $PSScriptRootNSE = Split-Path -Parent -Path $MyInvocation.MyCommand.Definition 
 $PSScriptRoot = Split-Path -Parent -Path $MyInvocation.MyCommand.Definition 
@@ -60,12 +65,12 @@ switch ($args[0]) {
 		$saltVboxDir         = $vboxDir.Replace('\','/')
 
 		if ( $pillarOverride ) {
-			echo \salt\salt-call.bat --config-dir="$PSScriptRoot\windows-salt\conf" -l info $args 
-			\salt\salt-call.bat --config-dir="$PSScriptRoot\windows-salt\conf" -l info $args 
+			echo \salt\salt-call.bat --config-dir="$PSScriptRoot\windows-salt\conf" -l $logLevel $args 
+			\salt\salt-call.bat --config-dir="$PSScriptRoot\windows-salt\conf" -l $logLevel $args 
 		} else {
-			echo \salt\salt-call.bat --config-dir="$PSScriptRoot\windows-salt\conf" -l info $args `
+			echo \salt\salt-call.bat --config-dir="$PSScriptRoot\windows-salt\conf" -l $logLevel $args `
 			   pillar="{PROGRAM_FILES: '$saltProgramFiles', LAMINAR_DIR: '$saltPSScriptRoot', HOME_PATH: '$saltHomePath', VBOX_DIR: '$saltVboxDir' }" 
-			\salt\salt-call.bat --config-dir="$PSScriptRoot\windows-salt\conf" -l info $args `
+			\salt\salt-call.bat --config-dir="$PSScriptRoot\windows-salt\conf" -l $logLevel $args `
 			   pillar="{PROGRAM_FILES: '$saltProgramFiles', LAMINAR_DIR: '$saltPSScriptRoot', HOME_PATH: '$saltHomePath', VBOX_DIR: '$saltVboxDir' }" 
 		}
             }

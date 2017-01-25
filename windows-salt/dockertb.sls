@@ -43,6 +43,7 @@
     restart_minion_for_dockertb:
       service.running:
         - name: salt-minion
+        - enable: True
         - watch:
           - win_path: dockertb_path
           - cmd: dockertb_install
@@ -50,6 +51,12 @@
       cmd.run:
         - name: 'docker-machine create -d virtualbox registry'
         - cwd: '{{ PROGRAM_FILES }}\Docker Toolbox'
+    gen-registry-certs:
+      cmd.run:
+        - name: 'docker-machine regenerate-certs -f registry'
+        - cwd: '{{ LAMINAR_DIR }}'
+        - onfail:
+          - cmd: create-registry
     stop_registry:
       cmd.run:
         - name: 'docker-machine stop registry'
