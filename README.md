@@ -25,7 +25,7 @@ Both the Vagrant Dockerhost and Windows will be configured with an environment v
 1. *Open a Powershell in Windows run as administrator*
 2. *Enter:* Set-ExecutionPolicy Unrestricted
 3. *Enter:* cd [where you want Laminar to live]
-4. *Enter:* git clone https://github.com/trochford/Laminar
+4. *Enter:* git clone https://github.com/trochford/Laminar.git
 5. *Enter:* cd [the Laminar cloned directory]
 6. *Enter:* .\laminar bootstrap
 
