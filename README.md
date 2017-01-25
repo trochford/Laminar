@@ -43,8 +43,10 @@ More complicated Laminar commands capture log information during the command exe
 
 *Exit the log browsing by typing:* q
 
-#### Checking status
+#### Help
 * *Enter:* laminar *- to see the Laminar command set*
+
+#### Checking status
 * *Enter:* laminar status *- to see the status of Vagrant, Docker Machine and Minikube*
 
 The status will look like this:
