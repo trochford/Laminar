@@ -24,8 +24,10 @@ Both the Vagrant Dockerhost and Windows will be configured with an environment v
 
 1. *Open a Powershell in Windows run as administrator*
 2. *Enter:* Set-ExecutionPolicy Unrestricted
-3. *Enter:* cd <the Laminar cloned directory>
-4. *Enter:* .\laminar bootstrap
+3. *Enter:* cd [where you want Laminar to live]
+4. *Enter:* git clone https://github.com/trochford/Laminar
+5. *Enter:* cd [the Laminar cloned directory]
+6. *Enter:* .\laminar bootstrap
 
 ##### Powershell
 * *To open a Powershell, use the Start menu Search entering:* Powershell
@@ -36,7 +38,7 @@ When Git is installing, choose the defaults provided.
 VirtualBox will require enabling Hardware Virtualization support in the Bios settings of the host machine.
 
 The Ubuntu image loaded will be Trusty64 from Hashicorp provided without a Desktop GUI.  The directory shared between Windows and the Ubuntu image is vagrantShare.   
-* *Windows -* <Laminar Dir>\vagrantShare
+* *Windows -* \<Laminar Dir\>\vagrantShare
 * *Linux -* /vagrantShare
 
 The vagrant user credentials are the defaults - User: vagrant ; Password: vagrant
@@ -59,7 +61,6 @@ For sessions subsequent to the initial running of the boot script, the Ubuntu im
 
 ### Laminar Help
 
-
 SYNOPSIS
     Dispatches a Laminar request to seven sub-commands.
 
@@ -69,13 +70,14 @@ SYNOPSIS
         - kubeup
         - start
         - env
+        - status
         - stop
         - down
         - remove
 
 
 SYNTAX
-    C:\users\tim\documents\laminar\laminar.ps1 [<CommonParameters>]
+    ...\laminar\laminar.ps1 [<CommonParameters>]
 
 
 DESCRIPTION
@@ -96,6 +98,9 @@ DESCRIPTION
      - env
        Sets the shell variable $myReg .
 
+     - status
+       Provides the status of Vagrant, Docker Machine and Minikube.
+
      - stop
        Deactivates the underlying Laminar toolsets - used to free up compute resources on your physical machine.
 
@@ -107,4 +112,5 @@ DESCRIPTION
        Uninstalls the Laminar toolsets.
 
     Laminar should be run in a Powershell with Administrator privileges with ExecutionPolicy set to Unrestricted.
+
 
