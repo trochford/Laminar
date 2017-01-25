@@ -44,9 +44,39 @@ More complicated Laminar commands capture log information during the command exe
 *Exit the log browsing by typing:* q
 
 #### Checking status
-*Enter:* laminar *- to see the Laminar command set*
-*Enter:* laminar status *- to see the status of Vagrant, Docker Machine and Minikube*
+* *Enter:* laminar *- to see the Laminar command set*
+* *Enter:* laminar status *- to see the status of Vagrant, Docker Machine and Minikube*
+
 The status will look like this:
+Running Laminar....
+status
+
+~~~ Vagrant            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+id       name               provider   state   directory
+-----------------------------------------------------------------------------------------------------
+8c07fab  akkaConsulDemo     docker     running C:/users/tim/laminar/vagrantShare/akka-cluster-consul
+bdcac01  vagrant-dockerhost virtualbox running C:/Users/Tim/test work/laminar/vagrantShare
+9faf98f  myService          docker     running C:/Users/Tim/test work/laminar/vagrantShare/myService
+
+The above shows information about all known Vagrant environments
+on this machine. This data is cached and may not be completely
+up-to-date. To interact with any of the machines, you can go to
+that directory and run Vagrant, or you can use the ID directly
+with Vagrant commands from any directory. For example:
+"vagrant destroy 1a2b3c4d"
+
+~~~ Docker Machine     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+NAME       ACTIVE   DRIVER       STATE     URL                         SWARM   DOCKER    ERRORS
+registry   -        virtualbox   Running   tcp://192.168.99.100:2376           v1.13.0
+
+~~~ minikube           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+minikubeVM: Running
+localkube: Running
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 #### General Information
 The Ubuntu image loaded will be Trusty64 from Hashicorp provided without a Desktop GUI.  The directory shared between Windows and the Ubuntu image is vagrantShare.   
