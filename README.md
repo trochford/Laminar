@@ -55,9 +55,9 @@ status
 
 id       name               provider   state   directory
 -----------------------------------------------------------------------------------------------------
-8c07fab  akkaConsulDemo     docker     running C:/users/tim/laminar/vagrantShare/akka-cluster-consul
-bdcac01  vagrant-dockerhost virtualbox running C:/Users/Tim/test work/laminar/vagrantShare
-9faf98f  myService          docker     running C:/Users/Tim/test work/laminar/vagrantShare/myService
+8c07fab  akkaConsulDemo     docker     running C:/users/.../laminar/vagrantShare/akka-cluster-consul
+bdcac01  vagrant-dockerhost virtualbox running C:/Users/.../test work/laminar/vagrantShare
+9faf98f  myService          docker     running C:/Users/.../test work/laminar/vagrantShare/myService
 
 The above shows information about all known Vagrant environments
 on this machine. This data is cached and may not be completely
