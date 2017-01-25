@@ -39,13 +39,16 @@ VirtualBox will require enabling Hardware Virtualization support in the Bios set
 When Git is installing, choose the defaults provided.
 
 #### Exit the log browser
-More complicated Laminar commands capture log information during the command execution. Those commands automatically load the log (a file created in the Laminar directory called "output.txt") in the "less" terminal pager program - a read-only terminal browser.  The most useful information tends to be a the bottom of the log where the SaltStack (the configuration work-horse) provides a report.  Typing a capital "G" jumps you to the end of the log.
+More complicated Laminar commands capture log information during the command execution. Those commands automatically load the log (a file created in the Laminar directory called "output.txt") in the "less" terminal pager program - a read-only terminal browser.  The most useful information tends to be a the bottom of the log where the SaltStack (the configuration work-horse) provides a report.  Typing a capital "G" jumps you to the end of the log. Typing the letter "h" provides help documentation.
 
 *Exit the log browsing by typing:* q
 
-*Enter:* laminar * - to see the Laminar command set*
-*Enter:* 
+#### Checking status
+*Enter:* laminar *- to see the Laminar command set*
+*Enter:* laminar status *- to see the status of Vagrant, Docker Machine and Minikube*
+The status will look like this:
 
+#### General Information
 The Ubuntu image loaded will be Trusty64 from Hashicorp provided without a Desktop GUI.  The directory shared between Windows and the Ubuntu image is vagrantShare.   
 * *Windows -* \<Laminar Dir\>\vagrantShare
 * *Linux -* /vagrantShare
