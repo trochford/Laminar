@@ -51,17 +51,17 @@
       cmd.run:
         - name: 'docker-machine create -d virtualbox registry'
         - cwd: '{{ PROGRAM_FILES }}\Docker Toolbox'
-    gen-registry-certs:
+    gen_registry_certs:
       cmd.run:
         - name: 'docker-machine regenerate-certs -f registry'
-        - cwd: '{{ LAMINAR_DIR }}'
+        - cwd: '{{ PROGRAM_FILES }}\Docker Toolbox'
         - onfail:
-          - cmd: create-registry
+          - cmd: create_registry
     stop_registry:
       cmd.run:
         - name: 'docker-machine stop registry'
         - cwd: '{{ PROGRAM_FILES }}\Docker Toolbox'
-    add_vbox_sharedfolder:
+    add-vbox_sharedfolder:
       cmd.run: 
         - name: '"{{ VBOX_DIR }}/VBoxManage.exe" sharedfolder add registry --name /var/lib/registry --hostpath "{{ LAMINAR_DIR }}/registry" --automount'
     start_registry:

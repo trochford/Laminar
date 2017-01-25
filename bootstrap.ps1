@@ -32,20 +32,20 @@
 ##
 # Provide a general description of the Laminar installation process
 
-Write-Host "                                                                                                  "
-Write-Host "                                                                                                  "
-Write-Host "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-Write-Host "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-Write-Host "~~ Laminar will begin by installing Salt and Git.  The Salt Winrepo will then be downloaded,    ~~"
-Write-Host "~~ and based on Winrepo definitions, VirtualBox and Vagrant will be installed.  Vagrant will    ~~"
-Write-Host "~~ bring up VirtualBox with a Ubuntu image.  Salt will be installed in that image and then Salt ~~"
-Write-Host "~~ will provision Docker in that image as well. Both Salt installations will be masterless      ~~"
-Write-Host "~~ minions. Docker Toolbox will be installed and a container created containing a 'registry'.   ~~"
-Write-Host "~~ A 'lite' version of Kubernetes can also be installed - Minikube.  It requires the Kubernetes ~~"
-Write-Host "~~ command line utility as well - Kubectl.                                                      ~~"
-Write-Host "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-Write-Host "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-Write-Host "                                                                                                  "
+Write-Output "                                                                                                  "
+Write-Output "                                                                                                  "
+Write-Output "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+Write-Output "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+Write-Output "~~ Laminar will begin by installing Salt and Git.  The Salt Winrepo will then be downloaded,    ~~"
+Write-Output "~~ and based on Winrepo definitions, VirtualBox and Vagrant will be installed.  Vagrant will    ~~"
+Write-Output "~~ bring up VirtualBox with a Ubuntu image.  Salt will be installed in that image and then Salt ~~"
+Write-Output "~~ will provision Docker in that image as well. Both Salt installations will be masterless      ~~"
+Write-Output "~~ minions. Docker Toolbox will be installed and a container created containing a 'registry'.   ~~"
+Write-Output "~~ A 'lite' version of Kubernetes can also be installed - Minikube.  It requires the Kubernetes ~~"
+Write-Output "~~ command line utility as well - Kubectl.                                                      ~~"
+Write-Output "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+Write-Output "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+Write-Output "                                                                                                  "
 
 
 ##
@@ -57,9 +57,9 @@ foreach ( $v in $PSVersionTable.PSCompatibleVersions ) {
     }
 }
 if ( -not $isCompatibleWithSaltstack ) {
-    Write-Host ""
-    Write-Host "Saltstack has some modules that depend on Powershell version 3 or greater.  Probably wise to upgrade,"
-    Write-Host "but Laminar runs successfully with Powershell 2."
+    Write-Output ""
+    Write-Output "Saltstack has some modules that depend on Powershell version 3 or greater.  Probably wise to upgrade,"
+    Write-Output "but Laminar runs successfully with Powershell 2."
     #return
 }
 
@@ -95,7 +95,7 @@ $packages = @(
 # Inquire which packages should be installed - only choices are currently Git and Salt
 foreach ($package in $packages) { 
     $packageName = $package.title
-    Write-Host " "
+    Write-Output " "
     $ans_pkg = Read-Host -Prompt "Download and install $packageName - [Y]es or [N]o?"
     if ( $ans_pkg.ToLower().StartsWith('y') ) {
         $package.selected = $TRUE
@@ -119,7 +119,7 @@ foreach ($package in $packages) {
         $destinationPath = $package.Destination + "\" + $fileName 
 
         If (!(Test-Path -Path $destinationPath -PathType Leaf)) { 
-            Write-Host "Downloading $packageName" 
+            Write-Output "Downloading $packageName" 
             $webClient = New-Object System.Net.WebClient 
             $webClient.DownloadFile($package.url,$destinationPath)
         }
@@ -183,59 +183,59 @@ $minionText | Out-File -filepath $confRoot\minion -encoding ASCII
 
 ##
 # Retrieve the winrepo into --- (These 3 salt-calls can be moved to a Salt SLS file)
-Write-Host ""
-Write-Host "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-Write-Host "~~~ Retrieving SaltStack's Winrepo resources"
-Write-Host "~~~"
+Write-Output ""
+Write-Output "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+Write-Output "~~~ Retrieving SaltStack's Winrepo resources"
+Write-Output "~~~"
 Invoke-Expression -Command ".\salt-call.bat --config-dir=""$confRoot"" winrepo.update_git_repos | Out-Null"
-Write-Host "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-Write-Host ""
+Write-Output "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+Write-Output ""
 
 # Update the Winrepo Database
-Write-Host ""
-Write-Host "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-Write-Host "~~~ Gen Winrepo"
-Write-Host "~~~"
+Write-Output ""
+Write-Output "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+Write-Output "~~~ Gen Winrepo"
+Write-Output "~~~"
 Invoke-Expression -Command ".\salt-call.bat --config-dir=""$confRoot"" winrepo.genrepo | Out-Null"
-Write-Host "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-Write-Host ""
+Write-Output "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+Write-Output ""
 
 # Refresh the pkg DB
-Write-Host ""
-Write-Host "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-Write-Host "~~~ Refreshing Winrepo Package DB "
-Write-Host "~~~  (expecting some 'intellij' Package DB compile errors)"
-Write-Host "~~~"
+Write-Output ""
+Write-Output "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+Write-Output "~~~ Refreshing Winrepo Package DB "
+Write-Output "~~~  (expecting some 'intellij' Package DB compile errors)"
+Write-Output "~~~"
 Invoke-Expression -Command ".\salt-call.bat --config-dir=""$confRoot"" pkg.refresh_db | Out-Null"
-Write-Host "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-Write-Host ""
+Write-Output "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+Write-Output ""
 
 ##
 # Invoke Salt to do the rest of the bootstrap....
 
-Write-Host ""
-Write-Host ""
-Write-Host "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-Write-Host "~~~ Running Salt states to ensure VirtualBox, Vagrant, etc. are installed & wired on Windows"
-Write-Host "~~~"
-Write-Host "~~~ These SaltStack states will take about 20 minutes to run..."
-Write-Host "~~~"
-Write-Host "~~~ The salt-call command completing the bootstrap: "
-Write-Host "~~~"
-Write-Host ""
+Write-Output ""
+Write-Output ""
+Write-Output "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+Write-Output "~~~ Running Salt states to ensure VirtualBox, Vagrant, etc. are installed & wired on Windows"
+Write-Output "~~~"
+Write-Output "~~~ These SaltStack states will take about 20 minutes to run..."
+Write-Output "~~~"
+Write-Output "~~~ The salt-call command completing the bootstrap: "
+Write-Output "~~~"
+Write-Output ""
 echo ".\salt-call.bat --config-dir=""$confRoot"" --metadata state.highstate pillar=`"{'PROGRAM_FILES': '$saltProgramFiles', 'LAMINAR_DIR': '$saltPSScriptRoot', 'HOME_PATH': '$saltHomePath', 'VBOX_DIR': '$saltVboxDir' }`" -l warning"
-Write-Host ""
-Write-Host "~~~"
-Write-Host "~~~"
-Write-Host "~~~ Starting the run now..."
-Write-Host "~~~  - Expecting Salt Winrepo package errors - 'duplicati' not defined as a dictionary and 'intellij' again"
-Write-Host "~~~  - The Virtualbox Winrepo package indicates an error for a successful install status"
-Write-Host "~~~  - If you are running Powershell less than version 4, there will be an error on the instal of 'dvm'"
-Write-Host "~~~     This refers to Docker Version Manager which has not been needed to date,"
-Write-Host "~~~     but is provided as a possible convenience."
-Write-Host "~~~"
-Write-Host ""
-Write-Host ""
+Write-Output ""
+Write-Output "~~~"
+Write-Output "~~~"
+Write-Output "~~~ Starting the run now..."
+Write-Output "~~~  - Expecting Salt Winrepo package errors - 'duplicati' not defined as a dictionary and 'intellij' again"
+Write-Output "~~~  - The Virtualbox Winrepo package indicates an error for a successful install status"
+Write-Output "~~~  - If you are running Powershell less than version 4, there will be an error on the instal of 'dvm'"
+Write-Output "~~~     This refers to Docker Version Manager which has not been needed to date,"
+Write-Output "~~~     but is provided as a possible convenience."
+Write-Output "~~~"
+Write-Output ""
+Write-Output ""
 Invoke-Expression -Command ".\salt-call.bat --config-dir=""$confRoot"" --metadata state.highstate pillar=`"{'PROGRAM_FILES': '$saltProgramFiles', 'LAMINAR_DIR': '$saltPSScriptRoot', 'HOME_PATH': '$saltHomePath', 'VBOX_DIR': '$saltVboxDir' }`" -l warning"
 
 
