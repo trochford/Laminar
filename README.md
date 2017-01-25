@@ -57,7 +57,7 @@ There will be two Vagrant providers running: one for Docker and one for the Ubun
 Tested on Windows 7 and Windows 10.
 
 For sessions subsequent to the initial running of the boot script, the "vagrant-dockerhost" image can be started in the standard Vagrant fashion:
-* *In a CMD shell, enter:* cd [...]\vagrantShare
+* *In a CMD or Powershell shell, enter:* cd [Laminar directory]\vagrantShare
 * *Enter:* vagrant up
 
 ### Laminar Help
