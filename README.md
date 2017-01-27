@@ -5,7 +5,7 @@ Quick setup of Git, SaltStack, Vagrant, Docker, Docker Toolbox and Minikube for 
 * Ease the process of getting started with Docker, Docker Toolbox, Vagrant and Kubernetes on a Windows machine.
 
 #### What's in Laminar Lab?
-You can review an to Laminar Lab here: [Laminar Intro](https:doc) 
+You can review an to Laminar Lab here: [Laminar Intro](https:doc/index.md) 
 
 Laminar will bootstrap by installing Salt and Git on Windows after prompting.  The Salt Winrepo holding Windows package defintions will then be downloaded,
 and based on Winrepo definitions, VirtualBox and Vagrant will be installed on Windows.  Vagrant will
