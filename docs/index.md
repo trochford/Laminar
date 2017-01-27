@@ -1,6 +1,6 @@
 # Overview
 
-### [Intro](#Intro)
+### [Intro](#intro-1)
 ### [Step-by-Step](step-by-step.md)
 ### [Laminar Commands](laminar-commands.md)
 ### [Theory of Operations](theory-of-ops.md)
