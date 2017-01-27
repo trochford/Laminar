@@ -5,7 +5,7 @@ Quick setup of Git, SaltStack, Vagrant, Docker, Docker Toolbox and Minikube for 
 * Ease the process of getting started with Docker, Docker Toolbox, Vagrant and Kubernetes on a Windows machine.
 
 #### What's in Laminar Lab?
-An overview of Laminar Lab is available here: [Laminar Intro](https:doc/index.md) 
+An overview of Laminar Lab is available here: [Laminar Intro](https:docs/index.md) 
 
 #### Laminar Bootstrap
 
