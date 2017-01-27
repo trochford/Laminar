@@ -1,8 +1,4 @@
----
-layout: "post"
-title: "readme."
-date: "2017-01-26 15:29"
----
+
 ## Intro
 
 Laminar Lab provides a single machine DevOps lab that incorporates and aligns a tool set to enable Dev or Ops practitioners to exercise software packages in a scaled-down but operationally accurate environment.  The tools used in the lab scale up to production needs and provide production oriented features such as sustaining replica targets and rolling updates and rollback.
@@ -15,13 +11,13 @@ The Laminar "bootstrap" command downloads and stands up the component configurat
 
 Docker containers are the primary "contract" in Laminar Lab and access to the local private container registry is pre-configured. An environment variable - "$myReg" - is configured in both the host OS and in the Vagrant VM in support of Docker push and pull commands.  Both the Docker Machine docker engine and the Minikube cluster are also configured to accept $myReg as the local private registry.  
 
-![Three tool set clusters](images\first.png){: .center-image }
+![Three tool set clusters](images/first.png)
 
 Withing the Laminar directory is a directory called "registry" which provides local, persistent storage for the Registry container.  The Registry container itself can be destroyed and re-created, but the images that have been pushed to the Registry will be persisted in the Laminar registry directory.
 
 Also within the Laminar directory hierarchy, there is a directory called "vagrantShare" which is shared by the host OS and the Vagrant VM (running Ubuntu).  Containers running within the VM can be configured to share access to vagrantShare as well - the Phusion example container has been configured this way.
 
-![link](images/second.png){: .center-image }
+![Drill down into vagrant-dockerhost](images/second.png)
 
 This "Russian doll" configuration of components, all sharing access to the vagrantShare directory, eases access to project directories residing with vagrantShare from each component level.
 
@@ -38,7 +34,9 @@ There are many excellent "how to" articles on working with the tools assembled b
 ## Getting Started
 
 More usage information for Laminar Lab can be found here:
-
-    https://github.com/trochford/Laminar
+[Laminar README.MD](https:../README.md)
 
 Follow the "Getting started..." steps in the README overview.
+  [Laminar Bootstrap](https:../README.md#laminar-bootstrap)
+
+
