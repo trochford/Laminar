@@ -1,12 +1,12 @@
 # Overview
 
-### [Intro](#intro-1)
-### [Step-by-Step](step-by-step.md)
-### [Laminar Commands](laminar-commands.md)
-### [Theory of Operations](theory-of-ops.md)
-### [More on Why - A Bigger Picture](bigger-picture.md)
-### [Attributions](attributions.md)
-### [References](references.md)
+* [Intro](#intro-1)
+* [Step-by-Step](step-by-step.md)
+* [Laminar Commands](laminar-commands.md)
+* [Theory of Operations](theory-of-ops.md)
+* [More on Why - A Bigger Picture](bigger-picture.md)
+* [Attributions](attributions.md)
+* [References](references.md)
 
 
 ## Intro
