@@ -1,8 +1,4 @@
----
-layout: "post"
-title: "readme."
-date: "2017-01-26 15:29"
----
+
 ## Intro
 
 Laminar Lab provides a single machine DevOps lab that incorporates and aligns a tool set to enable Dev or Ops practitioners to exercise software packages in a scaled-down but operationally accurate environment.  The tools used in the lab scale up to production needs and provide production oriented features such as sustaining replica targets and rolling updates and rollback.
