@@ -34,9 +34,9 @@ There are many excellent "how to" articles on working with the tools assembled b
 ## Getting Started
 
 More usage information for Laminar Lab can be found here:
-[Laminar README.MD](https:../README.md)
+[Laminar README.MD](https://github.com/trochford/Laminar#laminar-lab)
 
 Follow the "Getting started..." steps in the README overview.
-  [Laminar Bootstrap](https:../README.md#laminar-bootstrap)
+  [Laminar Bootstrap](https://github.com/trochford/Laminar#laminar-bootstrap)
 
 
