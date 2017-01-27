@@ -15,13 +15,13 @@ The Laminar "bootstrap" command downloads and stands up the component configurat
 
 Docker containers are the primary "contract" in Laminar Lab and access to the local private container registry is pre-configured. An environment variable - "$myReg" - is configured in both the host OS and in the Vagrant VM in support of Docker push and pull commands.  Both the Docker Machine docker engine and the Minikube cluster are also configured to accept $myReg as the local private registry.  
 
-![Three tool set clusters](images\first.png){: .center-image }
+![Three tool set clusters](images/first.png)
 
 Withing the Laminar directory is a directory called "registry" which provides local, persistent storage for the Registry container.  The Registry container itself can be destroyed and re-created, but the images that have been pushed to the Registry will be persisted in the Laminar registry directory.
 
 Also within the Laminar directory hierarchy, there is a directory called "vagrantShare" which is shared by the host OS and the Vagrant VM (running Ubuntu).  Containers running within the VM can be configured to share access to vagrantShare as well - the Phusion example container has been configured this way.
 
-![link](images/second.png){: .center-image }
+![Drill down into vagrant-dockerhost](images/second.png)
 
 This "Russian doll" configuration of components, all sharing access to the vagrantShare directory, eases access to project directories residing with vagrantShare from each component level.
 
