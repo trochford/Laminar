@@ -52,9 +52,11 @@ The *env* command sets the Windows shell variable $myReg to the IP/Port of the r
 
 ### status
 The *status* command runs:
-* vagrant global-status
-* docker-machine ls
-* minikube status
+
+* `vagrant global-status`
+* `docker-machine ls`
+* `minikube status`
+
 as a quick status report.
 
 ### stop
