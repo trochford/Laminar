@@ -6,13 +6,14 @@ Laminar commands fall into two categories - more complicated commands where the 
 
 Learning a few basic "less" commands is a worthwhile investment.  Fortunately, the commands are very similar to the familiar "vi" commands.
 A quick list of typical commands:
-* "g" - top of the file
-* "G" - bottom of the file
-* "/" - search for the string following the slash
-* "&" - search for string following the ampersand and show only lines containing the string
-* "q" - exit "less"
 
-All tools assembled by Laminar can be called directly as in stand-alone usage. Only Minikube has been "adjusted" - adding a command "up" to the standard Minikube command set. The "up" command translates into Minikube "start" but with Laminar configuration parameters set in the command line invocation.
+* *g* - top of the file
+* *G* - bottom of the file
+* */* - search for the string following the slash
+* *&* - search for string following the ampersand and show only lines containing the string
+* *q* - exit "less"
+
+All tools assembled by Laminar can be called directly as in stand-alone usage. Only Minikube has been "adjusted" - adding a command *up* to the standard Minikube command set. The *up* command translates into Minikube *start* but with Laminar configuration parameters set in the command line invocation.
 
 The higher level Laminar commands ensure configuration alignment between tools and on occasion will conditionally perform various clean-up task when a tools command fails.  Essentially these clean-up tasks automate remediation steps recommended in the many "how-to" articles describing the stand-alone tool usage.
 
@@ -27,6 +28,7 @@ docker-machine  | create   |  Create the registry
 minikube  | up (start)   |  The local Kubernetes cluster.
 
 ### up
+
 
  Tool  | Command   | Comment  
 --|---|--
