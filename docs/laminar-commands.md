@@ -21,20 +21,20 @@ The higher level Laminar commands ensure configuration alignment between tools a
 
 Bootstrap starts by installing VirtualBox and Vagrant and then performs the *vagrant up* listed below.  Then Docker Toolbox is installed along with the convenience tool dvm (Docker Version Manager).  The dvm installation is contingent on have Powershell 4. The docker-machine create registry below is performed and the VirtualBox host mounts the persistent registry volume and the registry container is informed of that volume.  The standard registry image is then pulled. The $myReg variables are set in Windows and vagrant-dockerhost. Minikube, Kubectl and Kompose are installed. A minikube command wrappers is generated and the minikube up command listed below is performed.
 
- Tool  | Command   | Comment  
---|---|--
-vagrant  | up   |  The example container myService and vagrant-dockerhost after cleaning up any old vagrant-dockerhost VirtualBox VM.
-docker-machine  | create   |  Create the registry
-minikube  | up (start)   |  The local Kubernetes cluster.
+| Tool  | Command   | Comment |
+|--|---|--|
+| vagrant  | up   |  The example container myService and vagrant-dockerhost after cleaning up any old vagrant-dockerhost VirtualBox VM.|
+| docker-machine  | create   |  Create the registry. |
+| minikube  | up (start)   |  The local Kubernetes cluster. |
 
 ### up
 
 
- Tool  | Command   | Comment  
---|---|--
-vagrant  | up   |  The example container myService and vagrant-dockerhost after cleaning up any old vagrant-dockerhost VirtualBox VM.
-docker-machine  | create & start   |  Create & start the registry; Regenerate certs if necessary.
-minikube  | up (start)   |  The local Kubernetes cluster.
+| Tool  | Command   | Comment  |
+--|---|--|
+| vagrant  | up   |  The example container myService and vagrant-dockerhost after cleaning up any old vagrant-dockerhost VirtualBox VM. |
+| docker-machine  | create & start   |  Create & start the registry; Regenerate certs if necessary.|
+| minikube  | up (start)   |  The local Kubernetes cluster.|
 
 ### kubeup
 The *kubeup* command performes a *minikube up* command.  It is provided largely for documentation.
