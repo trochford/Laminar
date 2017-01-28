@@ -23,6 +23,7 @@
 * [DOCKER CONFIGURATION](https://www.vagrantup.com/docs/docker/configuration.html)
 * [Tutorial : Getting Started with Kubernetes on your Windows Laptop with Minikube](https://rominirani.com/tutorial-getting-started-with-kubernetes-on-your-windows-laptop-with-minikube-3269b54a226#.1c774q7x5)
 * [Kubernetes: Connecting Applications with Services](https://kubernetes.io/docs/user-guide/connecting-applications/)
+* [Kubernetes: Persistent Volumes](https://kubernetes.io/docs/user-guide/persistent-volumes/)
 * [Kompose: a tool to go from Docker-compose to Kubernetes](http://blog.kubernetes.io/2016/11/kompose-tool-go-from-docker-compose-to-kubernetes.html)
 * [Vagrant global configuration and plugins](http://raghusiddarth.com/blog/vagrant-global-configuration-and-plugins/)
 * [Kubernetes Web UI (Dashboard)](https://kubernetes.io/docs/user-guide/ui/)
