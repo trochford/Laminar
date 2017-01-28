@@ -28,7 +28,7 @@ minikube  | up (start)   |  The local Kubernetes cluster.
 
 ### up
 
-Tool  | Command   | Comment  
+ Tool  | Command   | Comment  
 --|---|--
 vagrant  | up   |  The example container myService and vagrant-dockerhost after cleaning up any old vagrant-dockerhost VirtualBox VM.
 docker-machine  | create & start   |  Create & start the registry; Regenerate certs if necessary.
@@ -39,7 +39,7 @@ The *kubeup* command performes a *minikube up* command.  It is provided largely 
 
 ### start
 
-Tool  | Command   | Comment  
+ Tool  | Command   | Comment  
 --|---|--
 vagrant  | reload   |   The example container *myService* and vagrant-dockerhost.
 docker-machine  | start   |  The registry
@@ -57,7 +57,7 @@ as a quick status report.
 
 ### stop
 
-Tool  | Command   | Comment  
+ Tool  | Command   | Comment  
 --|---|--
 vagrant  | halt   | The example container myService and vagrant-dockerhost.  
 docker-machine  | stop  | The registry.  
@@ -66,7 +66,7 @@ minikube  | stop   |  The local Kubernetes cluster.
 ### down
 The *down* command starts by performing *Laminar stop* and then the following clean-up action are performed.
 
-Tool  | Command   | Comment  
+ Tool  | Command   | Comment  
 --|---|--
 vagrant  | destroy   | The example container myService and vagrant-dockerhost.  
 docker-machine  | rm   | The registry.  Recall images pushed to the registry will be persisted in the directory [Laminar Dir]/vagrantShare/registry across registry container lifecycles.  
@@ -75,7 +75,7 @@ minikube  | delete   |  The local Kubernetes cluster.
 ### remove
 The *remove* command performs the *Laminar down* tool commands listed below followed by uninstalling Minikube, Kubectl, Kompose, Docker Toolbox, Vagrant and Virtualbox.
 
-Tool  | Command   | Comment  
+ Tool  | Command   | Comment  
 --|---|--
 vagrant  | halt & destroy   |  The example container "myService" and vagrant-dockerhost.
 docker-machine  | stop & rm   |  The registry
