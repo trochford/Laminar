@@ -9,6 +9,7 @@ Attributions of packages contributing to Laminar
 * [Vagrant Auto-network](https://github.com/oscar-stack/vagrant-auto_network)
 * [Vagrant Host Manager](https://github.com/devopsgroup-io/vagrant-hostmanager)
 * [Docker](https://www.docker.com/)
+* [Phusion](https://github.com/phusion/baseimage-docker)
 * [Docker Toolbox](https://www.docker.com/products/docker-toolbox)
 * [Minikube](https://github.com/kubernetes/minikube)
 * [Kompose (Kubernetes + Compose)](https://github.com/kubernetes-incubator/kompose)
