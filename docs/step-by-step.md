@@ -9,9 +9,9 @@ Here is an article outlining a sequence of steps to learn about Kubernetes.  Man
 Here is a similar sequence but translated into a shorter sequence based on Laminar.
 
 ```
-cd [Laminar dir]/vagrantShare
+cd <Laminar Dir>/vagrantShare
 
-  PS C:\users\tim\Laminar-master\vagrantShare> vagrant ssh
+  PS <Laminar Dir>\Laminar-master\vagrantShare> vagrant ssh
 
 vagrant ssh
 
@@ -103,7 +103,7 @@ exit
 
   logout
   Connection to 127.0.0.1 closed.
-  PS C:\users\tim\Laminar-master\vagrantShare>
+  PS <Laminar Dir>\Laminar-master\vagrantShare>
 
 # Bring up a browser and hit "http://myhost:80"
 
@@ -120,16 +120,16 @@ minikube docker-env
   $Env:DOCKER_API_VERSION = "1.23"
   # Run this command to configure your shell:
   # & minikube docker-env | Invoke-Expression
-  PS C:\users\tim\Laminar-master\vagrantShare>
+  PS <Laminar Dir>\Laminar-master\vagrantShare>
 
 & minikube docker-env | Invoke-Expression
 
-  PS C:\users\tim\Laminar-master\vagrantShare>
+  PS <Laminar Dir>\Laminar-master\vagrantShare>
 
 echo $myReg
 
   192.168.99.100:86
-  PS C:\users\tim\Laminar-master\vagrantShare>
+  PS <Laminar Dir>\Laminar-master\vagrantShare>
 
 docker pull $myReg/myweb
 
@@ -145,28 +145,28 @@ docker pull $myReg/myweb
   cf947717221c: Pull complete
   Digest: sha256:d4de589e808d01e9a3ea6b0ade1f30257b9eb7b5c3b98c31634f01ea59c02414
   Status: Downloaded newer image for 192.168.99.100:86/myweb:latest
-  PS C:\users\tim\Laminar-master\vagrantShare>
+  PS <Laminar Dir>\Laminar-master\vagrantShare>
 
 kubectl run my-web --image=$myReg/myweb --port=80
 
- deployment "my-web" created
- PS C:\users\tim\Laminar-master\vagrantShare>
+  deployment "my-web" created
+  PS <Laminar Dir>\Laminar-master\vagrantShare>
 
 kubectl expose deployment my-web --target-port=80 --type=NodePort
 
   service "my-web" exposed
-  PS C:\users\tim\Laminar-master\vagrantShare>
+  PS <Laminar Dir>\Laminar-master\vagrantShare>
 
 kubectl get svc my-web
 
   NAME      CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE
   my-web    10.0.0.135   <nodes>       80/TCP    1m
-  PS C:\users\tim\Laminar-master\vagrantShare>
+  PS <Laminar Dir>\Laminar-master\vagrantShare>
 
 minikube ip
 
   192.168.99.101
-  PS C:\users\tim\Laminar-master\vagrantShare>
+  PS <Laminar Dir>\Laminar-master\vagrantShare>
 
 minikube dashboard
 ```
