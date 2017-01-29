@@ -6,7 +6,7 @@ Here is an article outlining a sequence of steps to learn about Kubernetes.  Man
 
 [Configuring the Ultimate Development Environment for Kubernetes](http://thenewstack.io/tutorial-configuring-ultimate-development-environment-kubernetes/)
 
-Here is a similar, but shorter sequence but translated into Laminar.
+Here is a similar, but shorter sequence translated into Laminar.
 
 ```
 cd <Laminar Dir>/vagrantShare
