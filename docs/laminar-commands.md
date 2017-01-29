@@ -22,7 +22,7 @@ An quick overview of the Laminar commands can be obtained by either:
 ```
    laminar
 ```
-with no argument or:
+with no argument, or:
 
 ```
    help laminar.ps1
