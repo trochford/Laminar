@@ -7,6 +7,7 @@
 * [Running Complex Commands with sudo](http://www.linuxjournal.com/content/running-complex-commands-sudo)
 * [SaltStack: State Modules](https://docs.saltstack.com/en/latest/ref/states/all/index.html)
 * [Taking SaltStack to The Next Level With Pillars and Python States](http://dev.mlsdigital.net/posts/SaltStackBeyondJinjaStates/)
+* [Salt Winrepo](https://docs.saltstack.com/en/latest/topics/windows/windows-package-manager.html)
 * [Using Docker with Vagrant](http://blog.scottlowe.org/2015/02/10/using-docker-with-vagrant/)
 * [Vagrant and Docker – Next and Advanced steps with folders, ports, volumes, linking and more](https://technology.amis.nl/2015/08/25/vagrant-and-docker-next-and-advanced-steps-with-folders-ports-volumes-linking-and-more/)
 * [Overview of Docker Compose](https://docs.docker.com/compose/overview/)
