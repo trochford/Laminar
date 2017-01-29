@@ -1,15 +1,12 @@
 
 
-### Quick Baby Steps
-
-
-### A quick intro with Kubernetes
+### A quick intro - from Vagrant to Kubernetes
 
 Here is an article outlining a sequence of steps to learn about Kubernetes.  Many of those steps are automated by Laminar.
 
 [Configuring the Ultimate Development Environment for Kubernetes](http://thenewstack.io/tutorial-configuring-ultimate-development-environment-kubernetes/)
 
-Here is the subset of steps based for the same exercise with Laminar as the base:
+Here is a similar sequence but translated into a shorter sequence based on Laminar.
 
 ```
 cd [Laminar dir]/vagrantShare
@@ -189,14 +186,14 @@ Click on Actions and choose View/edit yaml (right panel).
 ![Edit yaml](images/view-edit-yaml.png)
 
 ```
-Scroll down to find the NodePort for the my-web Service.
+Scroll down to find the nodePort for the my-web Service.
 ```
 
 
 ![Find NodePort](images/nodeport.png)
 
 ```
-Hit the IP from minikube ip at the nodeport port in a browser.
+Hit the IP from minikube ip at the nodePort in a browser.
 ```
 
 ![Hit Kubernetes version of my-web](images/minikube-rocks.png)
