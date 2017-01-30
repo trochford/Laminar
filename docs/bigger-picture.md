@@ -59,8 +59,10 @@ Though it is difficult to map these statistics to the B2B ISV population, it wou
 And beyond container's themselves is the ability to manage clusters of containers. Container cluster managers are additional Web-scale infrastructure components providing Web-scale out capabilities, but address reliabilty and resiliance issues - both issues germain to B2B ISVs.  One such manager is Kubernetes which has been open sourced by Google.  A summary description from Kubernetes:
 
 [Kubernetes] [9] satisfies a number of common needs of applications running in production, such as:
-co-locating helper processes, facilitating composite applications and preserving the one-application-per-container model,
 
+* co-locating helper processes,
+* facilitating composite applications
+* preserving the one-application-per-container model,
 * mounting storage systems,
 * distributing secrets,
 * application health checking,
