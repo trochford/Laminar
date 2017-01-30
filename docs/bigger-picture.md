@@ -60,18 +60,18 @@ And beyond container's themselves is the ability to manage clusters of container
 
 [Kubernetes] [9] satisfies a number of common needs of applications running in production, such as:
 co-locating helper processes, facilitating composite applications and preserving the one-application-per-container model,
-- mounting storage systems,
-- distributing secrets,
-- application health checking,
-- replicating application instances,
-- horizontal auto-scaling,
-- naming and discovery,
-- load balancing,
-- rolling updates,
-- resource monitoring,
-- log access and ingestion,
-- support for introspection and debugging, and
-- identity and authorization.
+* mounting storage systems,
+* distributing secrets,
+* application health checking,
+* replicating application instances,
+* horizontal auto-scaling,
+* naming and discovery,
+* load balancing,
+* rolling updates,
+* resource monitoring,
+* log access and ingestion,
+* support for introspection and debugging, and
+* identity and authorization.
 
 Kubernetes builds on top of containers such as Docker and was designed to address issues that arise most dramatically at Web-scale level deployments - issues such as server and component failure.  At Web-scale, such failures are a daily event.  CWS ISVs had to tackle recovery and resilience issues head on and so built in replication and health-check mechanisms into the cluster management. The also had to deal with large scale new version application rollouts and the need to be able to rollback with no downtime in the event something went wrong.  B2B ISVs would benefit from these capabilities even though they are not operating at Web-scale.
 
