@@ -60,6 +60,7 @@ And beyond container's themselves is the ability to manage clusters of container
 
 [Kubernetes] [9] satisfies a number of common needs of applications running in production, such as:
 co-locating helper processes, facilitating composite applications and preserving the one-application-per-container model,
+
 * mounting storage systems,
 * distributing secrets,
 * application health checking,
