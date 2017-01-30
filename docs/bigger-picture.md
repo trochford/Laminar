@@ -76,11 +76,11 @@ And beyond container's themselves is the ability to manage clusters of container
 * support for introspection and debugging, and
 * identity and authorization.
 
-Kubernetes builds on top of containers such as Docker and was designed to address issues that arise most dramatically at Web-scale level deployments - issues such as server and component failure.  At Web-scale, such failures are a daily event.  CWS ISVs had to tackle recovery and resilience issues head on and so built in replication and health-check mechanisms into the cluster management. The also had to deal with large scale new version application rollouts and the need to be able to rollback with no downtime in the event something went wrong.  B2B ISVs would benefit from these capabilities even though they are not operating at Web-scale.
+Kubernetes builds on top of containers such as Docker and was designed to address issues that arise most dramatically at Web-scale level deployments - issues such as server and component failure.  At Web-scale, such failures are a daily event.  CWS ISVs had to tackle recovery and resilience issues head on and so built in replication and health-check mechanisms into the cluster management. They also had to deal with large scale new version application rollouts and the need to be able to rollback with no downtime in the event something went wrong.  B2B ISVs would benefit from these capabilities even though they are not operating at Web-scale.
 
 But the price is having members of the DevOps team gain experience with these capabilities.  
 
-There are many excellent "how to" articles on working with containers and cluster managers. But most Dev and Ops practitioners have constraints on the time-slice they can allocate to experimentation.  This is especially true in the Windows environment as many of these tools have a Unix, if not more specifically Linux, orientation.  Ideally a little scaled down lab where the tools are available, live and ready to work together would be enough to enable useful experiments to happen.
+There are many excellent "how to" articles on working with containers and cluster managers. But most Dev and Ops practitioners have constraints on the time-slice they can allocate to experimentation.  This is especially true in the Windows environment as many of these tools have a Unix, if not more specifically Linux, orientation.  Ideally a little scaled down lab where the tools are available, live and ready to work together would help enable useful experiments to happen.
 
 [An Overview of Laminar Lab](index.md)
 
