@@ -41,9 +41,9 @@ Notably the business models for B2B ISVs can be quite different from those of CW
 * Negotiated SLAs
 * Business continuity models
 
-The list goes on. B2B ISVs is that they can be grouped based on their heritage - i.e. where and how the ISVs software has actually been deployed.  Has the software been deployed on-premise, in a hosting facility, and/or a public cloud? Combined this turns into more than three groups, some ISV software can deployed only one of the three ways, while others may have all three kinds of deployment.  
+The list goes on. B2B ISVs can be grouped based on their "deployment heritage" - i.e. where and how the ISVs software has actually been deployed.  Has the software been deployed on-premise, in a hosting facility, and/or a public cloud? The combinations result in more than three groups, some ISV software can deployed only one of the three ways, while others may have all three kinds of deployment.  
 
-Business model and heritage affect the consideration of to make best use of Web scale infrastructure (frequently) sourced from CWS ISVs who have different business models, deployment heritages and organizational priorities.  An ISV with only on-premise or hosted deployments has more to think through, including figuring out which public Cloud services to leverage (or not) or what component technologies to use, but often there are more rudimentary considerations - what do I have to do to move my application to a cloud form - [is it a good fit?] [7]  Assuming the application can be made [cloud ready] [8], another wave of questions about the new target model arises:
+Business model and heritage affect the consideration of how to make best use of Web scale infrastructure sourced (often) from CWS ISVs who have different business models, deployment heritages and organizational priorities.  An ISV with only on-premise or hosted deployments has more to think through, including figuring out which public Cloud services to leverage (or not) or what component technologies to use, but often there are more rudimentary considerations - what do I have to do to move my application to a cloud form - [is it a good fit?] [7]  Assuming the application can be made [cloud ready] [8], another wave of questions about the new target model arises:
 
 * How does my organization need to change?
 * What kinds of skills will more organization need?
