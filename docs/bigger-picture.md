@@ -80,7 +80,7 @@ Large, messy, complex endeavors such as in [healthcare] [15] or [military missio
 6. Break down the authority gradient between ranks or positions for open communications to speed up execution and foster a bias for action.
 7. Build a shared understanding of each team member’s work, so that team members can understand the immediate impact of decisions and cascading impacts across the team.
 
-These guidelines do not suggest a set of experts operating independently.  Rather they suggest group of individuals working together under shared values so they can work interdependently in an effective way. The individuals in this group work to have a broader perspective than their own expertise. To this end, they need a way to explore and experience the work their teammates do.
+These guidelines do not suggest a set of experts operating independently.  Rather they suggest group of individuals establishing a new governing set of shared values so they can work interdependently in an effective way. The individuals in this group work to have a broader perspective than their own expertise. To this end, they need a way to explore and experience the work their teammates do.
 
 ### Building Blocks for the Transition
 
