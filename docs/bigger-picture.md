@@ -42,7 +42,9 @@ Notably the models for B2B ISVs can be quite different from those of CWS ISVs.  
 * Negotiated SLAs
 * Business continuity models
 
-The list goes on. Part of this consideration is how to make best use of Web scale infrastructure often sourced from CWS ISVs who have different models and priorities.  This includes figuring out which public Cloud services to leverage (or not) or what component technologies to use, but often there are more rudimentary considerations - what do I have to do to move my application to a cloud form - [is it a good fit?] [7]  Assuming the application can be made [cloud ready] [8], another wave of questions about the new target model arises:
+The list goes on. Another aspect of B2B ISVs is that they can be grouped based on their heritage.  Without getting into labels such as "legacy" or "born in the cloud", there are characteristics of where and how the ISVs software has actually been deployed.  Has the software been deployed on-premise, in a hosted facility and/or a public cloud? This turns into more than three groups, some ISV software can deployed only one of the three ways, while others may have all three kinds of deployment.  
+
+These differences are part of the consideration as to how to make best use of Web scale infrastructure (frequently) sourced from CWS ISVs who have different business models, deployment heritages and organizational priorities.  An ISV with only on-premise or hosted deployments has more to think through, including figuring out which public Cloud services to leverage (or not) or what component technologies to use, but often there are more rudimentary considerations - what do I have to do to move my application to a cloud form - [is it a good fit?] [7]  Assuming the application can be made [cloud ready] [8], another wave of questions about the new target model arises:
 
 * How does my organization need to change?
 * What kinds of skills do we need?
