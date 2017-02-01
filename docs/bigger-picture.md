@@ -42,7 +42,7 @@ Notably the models for B2B ISVs can be quite different from those of CWS ISVs.  
 * Negotiated SLAs
 * Business continuity models
 
-The list goes on. Another aspect of B2B ISVs is that they can be grouped based on their heritage.  Without getting into labels such as "legacy" or "born in the cloud", there are characteristics of where and how the ISVs software has actually been deployed.  Has the software been deployed on-premise, in a hosted facility and/or a public cloud? This turns into more than three groups, some ISV software can deployed only one of the three ways, while others may have all three kinds of deployment.  
+The list goes on. Another aspect of B2B ISVs is that they can be grouped based on their heritage.  Without getting into labels such as "legacy" or "born in the cloud", there are characteristics of where and how the ISVs software has actually been deployed.  Has the software been deployed on-premise, in a hosted facility, and/or a public cloud? This turns into more than three groups, some ISV software can deployed only one of the three ways, while others may have all three kinds of deployment.  
 
 These differences are part of the consideration as to how to make best use of Web scale infrastructure (frequently) sourced from CWS ISVs who have different business models, deployment heritages and organizational priorities.  An ISV with only on-premise or hosted deployments has more to think through, including figuring out which public Cloud services to leverage (or not) or what component technologies to use, but often there are more rudimentary considerations - what do I have to do to move my application to a cloud form - [is it a good fit?] [7]  Assuming the application can be made [cloud ready] [8], another wave of questions about the new target model arises:
 
@@ -52,6 +52,10 @@ These differences are part of the consideration as to how to make best use of We
 * *How deep to these changes need to be?*
 
 That last question is contextual, i.e. it depends on the ISV's organization and business situation, but it is the more revealing question. It asks at what level will we need to re-optimize? Will changes be to individuals, teams, groups, or the full organization?  Is the organization's whole mission changing or just some objectives or goals?
+
+Let's take an example based of an ISV who deploys their product in a hosting facility. The development and QA teams employ an agile approach process to build the product and vet it is ready for production.  It is then handed off to be deployed in production where access is limited to the IT Operations team. There are release notes, and some scripts provided as well. Assuming development followed good continuous delivery principles with code binaries separated from configuration, configurations well managed under source control, etc., there still remains significant coordination challenges in this hand-off. There are multiple disciplines required to make successful deployment from a customers perspective. Development and IT Operations have different expertise and priorities, the way in which they work together is critical to success.  
+
+As the B2B ISVs takes on more operational responsibilities, the multiple disciplines challenge can arise regardless of deployment model. Whether hosted, on-premise or cloud, the manner in which teams work together in meeting those operational responsibilities is critical.
 
 ### Interdisciplinary Perspective
 
