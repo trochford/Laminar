@@ -88,7 +88,7 @@ $source = 'C:\source'
 If (!(Test-Path -Path $source -PathType Container)) {New-Item -Path $source -ItemType Directory | Out-Null} 
 
 $packages = @( 
-@{title='Salt Minion';url='https://repo.saltstack.com/windows/Salt-Minion-2016.11.0-x86-Setup.exe';Arguments=' /s /start-service=0';Destination=$source;phase=1}, 
+@{title='Salt Minion';url='https://repo.saltstack.com/windows/Salt-Minion-2016.11.0-x86-Setup.exe';Arguments=' /S /start-service=0';Destination=$source;phase=1}, 
 @{title='Git for Windows';url='https://github.com/git-for-windows/git/releases/download/v2.10.2.windows.1/Git-2.10.2-64-bit.exe';Arguments=' /VERYSILENT /SUPPRESSMSGBOXES /NORESTART /SP-';Destination=$source;phase=1} 
 )
  
@@ -134,7 +134,7 @@ foreach ($package in $packages) {
         $fileName = [System.IO.Path]::GetFileName($package.url) 
         $destinationPath = $package.Destination + "\" + $fileName 
         $Arguments = $package.Arguments 
-        Write-Output "Installing $packageName" 
+        Write-Output "Installing $packageName with argument: $Arguments" 
         Invoke-Expression -Command "$destinationPath $Arguments | Write-Output"
     }
 }
