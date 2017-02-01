@@ -20,11 +20,11 @@ A low overhead, fast path to getting hands-on experience with these infrastructu
 
 ### Innovation and Adoption Trends
 
-[Web scale ISVs] [5] have been refining their technology infrastructure for about 20 years now and at this point, some scale to the order of a million servers to deliver their online services. This is part of the well known, long term trend of consumer markets superseding businesses as the driver of tech innovation. The "curves crossed" around the late nineties-[2000] [6] about the time Web growth was dramatically accelerating through the low 100's of millions of users opening the opportunity for new kinds of businesses to reach millions of consumers.
+[Web scale ISVs] [5] have been refining their technology infrastructure for about 20 years now, and at this point, some scale to the order of a million servers to deliver their online services. This is part of the well known, long term trend of consumer markets superseding businesses as the driver of tech innovation. The "curves crossed" around the late nineties-[2000] [6] about the time Web growth was dramatically accelerating through the low 100's of millions of users opening the opportunity for new kinds of businesses to reach millions of consumers.
 
-Consumer Web Scale [CWS] ISVs have been creatively using a variety of economic models, including both commercial and open source, to provide their infrastructure innovations to the Web platform market. Defraying their infrastructure costs across a base wider than their business provides a competitive advantage. B2B ISVs in the mid-scale make up a bigger fraction of the [ISV industry] [12] by count.  They are at various stages of offering their software as online services and continue to evolve their offerings form and function.  Both CWS ISVs and mid-scale B2B ISVs benefit if Web scale infrastructure can be adopted productively by mid-scale ISVs. So what is the incentive for B2b ISVs and what are the challenges?
+Consumer Web Scale [CWS] ISVs have been creatively using a variety of economic models, including both commercial and open source, to provide their infrastructure innovations to the Web platform market. Defraying their infrastructure costs across a base wider than their business provides a competitive advantage. B2B ISVs in the mid-scale make up a bigger fraction of the [ISV industry] [12] by count.  They are at various stages of offering their software as online services, and continue to evolve their offerings form and function.  Both CWS ISVs and mid-scale B2B ISVs benefit if Web scale infrastructure can be adopted productively by mid-scale ISVs. So what is the incentives B2b ISVs to adopt, and what are the challenges?
 
-Through out the economy, competitive forces are driving businesses to take on more of their customers' operational costs and risk. Examples include [fulfillment in retailing] [11], [payment models in healthcare] [10] and [ISV SaaS or Cloud models] [13]. These relentless forces require B2B ISVs to rethink their business models and figure out how to transition to new target models while not undermining their businesses.
+Throughout the economy, competitive forces are driving businesses to take on more of their customers' operational costs and risk. Examples include [fulfillment in retailing] [11], [payment models in healthcare] [10] and [ISV SaaS or Cloud models] [13]. These relentless forces require B2B ISVs to rethink their business models and figure out how to transition to new target models while not undermining their businesses.
 
 Notably the models for B2B ISVs can be quite different from those of CWS ISVs.  Differences include:
 
@@ -35,14 +35,13 @@ Notably the models for B2B ISVs can be quite different from those of CWS ISVs.  
 * Customer switching costs
 * Regulations
 * Customer planning horizons
-* The need for organizational vs individual changes of behavior
-  * Including some stakeholders who stand to lose
+* The need for organizational vs individual changes of behavior, including some stakeholders who stand to lose
 * Potentially deeper integration needs
 * Deeper backward compatibility needs
 * Negotiated SLAs
 * Business continuity models
 
-The list goes on. Another aspect of B2B ISVs is that they can be grouped based on their heritage.  Without getting into labels such as "legacy" or "born in the cloud", there are characteristics of where and how the ISVs software has actually been deployed.  Has the software been deployed on-premise, in a hosted facility, and/or a public cloud? This turns into more than three groups, some ISV software can deployed only one of the three ways, while others may have all three kinds of deployment.  
+The list goes on. Another aspect of B2B ISVs is that they can be grouped based on their heritage.  Without getting into labels such as "legacy" or "born in the cloud", there are characteristics of where and how the ISVs software has actually been deployed.  Has the software been deployed on-premise, in a hosting facility, and/or a public cloud? Combined this turns into more than three groups, some ISV software can deployed only one of the three ways, while others may have all three kinds of deployment.  
 
 These differences are part of the consideration as to how to make best use of Web scale infrastructure (frequently) sourced from CWS ISVs who have different business models, deployment heritages and organizational priorities.  An ISV with only on-premise or hosted deployments has more to think through, including figuring out which public Cloud services to leverage (or not) or what component technologies to use, but often there are more rudimentary considerations - what do I have to do to move my application to a cloud form - [is it a good fit?] [7]  Assuming the application can be made [cloud ready] [8], another wave of questions about the new target model arises:
 
@@ -53,9 +52,15 @@ These differences are part of the consideration as to how to make best use of We
 
 That last question is contextual, i.e. it depends on the ISV's organization and business situation, but it is the more revealing question. It asks at what level will we need to re-optimize? Will changes be to individuals, teams, groups, or the full organization?  Is the organization's whole mission changing or just some objectives or goals?
 
-Let's take an example based of an ISV who deploys their product in a hosting facility. The development and QA teams employ an agile approach process to build the product and vet it is ready for production.  It is then handed off to be deployed in production where access is limited to the IT Operations team. There are release notes, and some scripts provided as well. Assuming development followed good continuous delivery principles with code binaries separated from configuration, configurations well managed under source control, etc., there still remains significant coordination challenges in this hand-off. There are multiple disciplines required to make successful deployment from a customers perspective. Development and IT Operations have different expertise and priorities, the way in which they work together is critical to success.  Does the operations team have to reverse engineer the product to make it run in the production environment?  Was the pre-production environment a good facsimile of production? Does operations understand the needs of development and vise versa?
+Let's take an example based of an ISV who deploys their product in a hosting facility. The development and QA teams employ an agile approach process to build the product and vet it is ready for production.  It is then handed off to be deployed in production where access is limited to the IT Operations team. There are release notes, and some scripts provided as well. Assuming development followed good continuous delivery principles with code binaries separated from configuration, configurations well managed under source control, etc., there still remains significant coordination challenges in this hand-off. There are multiple disciplines required to make successful deployment from a customers perspective. Development and IT Operations have different expertise and priorities, the way in which they work together is critical to success.
 
-As the B2B ISVs takes on more operational responsibilities, the multiple disciplines challenge can arise regardless of deployment model. Whether hosted, on-premise or cloud, the manner in which teams work together in meeting those operational responsibilities is critical.
+* Does the operations team have to reverse engineer the product to make it run in the production environment?
+* How good a facsimile of production is production-staging environment?
+* How does development gain insight into the work of operations and vise versa?
+* What is the criteria used to decide what deployment packaging to use?
+* Is there a way to better project operational realities upstream into development?
+
+As the B2B ISVs takes on more operational responsibilities, the multiple disciplines challenge arises regardless of deployment model. Whether hosted, on-premise or cloud, the manner in which teams work together in meeting those operational responsibilities is critical.
 
 ### Interdisciplinary Perspective
 
