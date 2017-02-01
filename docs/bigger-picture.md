@@ -132,7 +132,7 @@ A further benefit of adopting containers for the B2B ISV is the ability to more 
 
 ### Getting Started
 
-**"In theory there is no difference between practice and theory, in practice there is.""**
+**"In theory there is no difference between practice and theory, in practice there is."**
 
 But the price is the investment of having members of the interdisciplinary DevOps team gain experience with these Infrastructure building blocks.  The team has to be provided the *adaptive capacity*, to borrow from Cadieux's phrasing, to explore how to exploit the technologies to the benefit of the B2B ISV. Hands-on experience is needed to work through the hard realities of making system change, deployment and management a predictable, efficient and largely automate process.
 
