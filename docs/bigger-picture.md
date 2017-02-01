@@ -66,7 +66,7 @@ There are multiple disciplines required to make a successful deployment from a c
 * Is there a way to better project operational constraints and realities upstream into development?
 * Is there a better way to project the dynamics of product change downstream into operations?
 
-As the B2B ISVs takes on more operational responsibilities, the multiple disciplines challenge arises regardless of deployment model. Whether hosted, on-premise or cloud, the manner in which teams work together in meeting those operational responsibilities is critical.
+As the B2B ISVs takes on more operational responsibilities, the multiple disciplines challenge arises regardless of deployment model. Whether the heritage is hosted, on-premise or cloud, the manner in which teams work together in meeting those operational responsibilities is critical.
 
 ### Rethinking from an Interdisciplinary Perspective
 
