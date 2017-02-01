@@ -4,9 +4,11 @@
 
 ### Summary
 
-Web scale ISVs are the providers of Web platform services with millions of users. They might be search engines, retailers, B2B marketplaces, social media or other online services.  Because of their vast scale, these organizations are compelled to deal with operational issues such as ensuring their service is available when some fraction of their server inventory goes down on a daily basis, or managing deployment process across thousands of machines efficiently and reliably. They operate at the level of scale where such daily operational challenges must be addressed in a predictable and efficient way.  To meet these challenges, Web scale ISVs make infrastructure investments and produce innovations not required of smaller Web platforms.
+Web scale ISVs (upper right quadrant) are the providers of Web platform services with millions of users. They might be search engines, retailers, B2B marketplaces, social media or other online services.  Because of their vast scale, these organizations are compelled to deal with operational issues such as ensuring their service is available when some fraction of their server inventory goes down on a daily basis, or managing deployment process across thousands of machines efficiently and reliably. They operate at the level of scale where such daily operational challenges must be addressed in a predictable and efficient way.  To meet these challenges, Web scale ISVs make infrastructure investments and produce innovations not required of smaller Web platforms.
 
-Mid scale B2B ISVs with smaller user bases may not be able to justify the creation of such Web-scale infrastructure, but they *can* justify the use of it, though with a different balance of benefits than B2C Web-scale ISVs.  Collateral benefits stemming from addressing Web-scale challenges are applicable to problems faced by B2B ISVs. But their challenges are:
+![Market breakdown by User Scale and Business Model](images/markets.png)
+
+Mid scale B2B ISVs (lower left quadrant) with smaller user bases may not be able to justify the creation of such Web-scale infrastructure, but they *can* justify the use of it, though with a different balance of benefits than B2C Web-scale ISVs.  Collateral benefits stemming from addressing Web-scale challenges are applicable to problems faced by B2B ISVs. But their challenges are:
 
 1. Climbing the learning curve on the use of Web scale infrastructure,
 
@@ -16,7 +18,8 @@ Mid scale B2B ISVs with smaller user bases may not be able to justify the creati
 
 A low overhead, fast path to getting hands-on experience with these infrastructure building blocks can help technology teams meet those challenges. Rapid experimentation into new ways of packaging, deploying and managing the ISV's software builds grounded confidence and insight into what new team practices will be needed.
 
-![Market breakdown by User Scale and Business Model](images/markets.png)
+Laminar can provide that path.
+
 
 ### Infrastructure Innovation & Adoption Drivers and Challenges
 
