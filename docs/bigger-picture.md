@@ -130,8 +130,9 @@ Combining these technologies with [Immutable Infrastructure] [18] practices, whi
 A further benefit of adopting containers for the B2B ISV is the ability to more rapidly assimilate new technologies as they become available.  Many new technologies that may be relevant to the B2B ISV are now delivered in container form, e.g. machine learning, NLP, big data, blockchain, etc. These technologies are often constructed as multiple services needing to work together.  Orchestrated containers are a very good form factor for such delivery. Competence in this kind of packaging increases the organizations ability to explore and absorb new technologies that can extend the B2B ISV's value proposition.
 
 
+### Getting Started
 
-**In theory there is no difference between practice and theory, in practice there is.**
+**"In theory there is no difference between practice and theory, in practice there is.""**
 
 But the price is the investment of having members of the interdisciplinary DevOps team gain experience with these Infrastructure building blocks.  The team has to be provided the *adaptive capacity*, to borrow from Cadieux's phrasing, to explore how to exploit the technologies to the benefit of the B2B ISV. Hands-on experience is needed to work through the hard realities of making system change, deployment and management a predictable, efficient and largely automate process.
 
