@@ -18,15 +18,15 @@ A low overhead, fast path to getting hands-on experience with these infrastructu
 
 ![Market breakdown by User Scale and Business Model](images/markets.png)
 
-### Innovation and Adoption Trends
+### Infrastructure Innovation & Adoption Drivers and Challenges
 
 [Web scale ISVs] [5] have been refining their technology infrastructure for about 20 years now, and at this point, some scale to the order of a million servers to deliver their online services. This is part of the well known, long term trend of consumer markets superseding businesses as the driver of tech innovation. The "curves crossed" around the late nineties-[2000] [6] about the time Web growth was dramatically accelerating through the low 100's of millions of users opening the opportunity for new kinds of businesses to reach millions of consumers.
 
-Consumer Web Scale [CWS] ISVs have been creatively using a variety of economic models, including both commercial and open source, to provide their infrastructure innovations to the Web platform market. Defraying their infrastructure costs across a base wider than their business provides a competitive advantage. B2B ISVs in the mid-scale make up a bigger fraction of the [ISV industry] [12] by count.  They are at various stages of offering their software as online services, and continue to evolve their offerings form and function.  Both CWS ISVs and mid-scale B2B ISVs benefit if Web scale infrastructure can be adopted productively by mid-scale ISVs. So what is the incentives B2b ISVs to adopt, and what are the challenges?
+Consumer Web Scale [CWS] ISVs have been creatively using a variety of economic models, including both commercial and open source, to provide their infrastructure innovations to the Web platform market. Defraying their infrastructure costs across a base wider than their business provides a competitive advantage. B2B ISVs in the mid-scale make up a bigger fraction of the [ISV industry] [12] by count.  Both CWS ISVs and mid-scale B2B ISVs benefit if Web scale infrastructure can be adopted productively by mid-scale ISVs. So what is the incentives B2b ISVs to adopt, and what are the challenges?
 
 Throughout the economy, competitive forces are driving businesses to take on more of their customers' operational costs and risk. Examples include [fulfillment in retailing] [11], [payment models in healthcare] [10] and [ISV SaaS or Cloud models] [13]. These relentless forces require B2B ISVs to rethink their business models and figure out how to transition to new target models while not undermining their businesses.
 
-Notably the models for B2B ISVs can be quite different from those of CWS ISVs.  Differences include:
+Notably the business models for B2B ISVs can be quite different from those of CWS ISVs.  Differences include:
 
 * Revenue models
 * Pricing
@@ -41,28 +41,31 @@ Notably the models for B2B ISVs can be quite different from those of CWS ISVs.  
 * Negotiated SLAs
 * Business continuity models
 
-The list goes on. Another aspect of B2B ISVs is that they can be grouped based on their heritage.  Without getting into labels such as "legacy" or "born in the cloud", there are characteristics of where and how the ISVs software has actually been deployed.  Has the software been deployed on-premise, in a hosting facility, and/or a public cloud? Combined this turns into more than three groups, some ISV software can deployed only one of the three ways, while others may have all three kinds of deployment.  
+The list goes on. B2B ISVs is that they can be grouped based on their heritage - i.e. where and how the ISVs software has actually been deployed.  Has the software been deployed on-premise, in a hosting facility, and/or a public cloud? Combined this turns into more than three groups, some ISV software can deployed only one of the three ways, while others may have all three kinds of deployment.  
 
-These differences are part of the consideration as to how to make best use of Web scale infrastructure (frequently) sourced from CWS ISVs who have different business models, deployment heritages and organizational priorities.  An ISV with only on-premise or hosted deployments has more to think through, including figuring out which public Cloud services to leverage (or not) or what component technologies to use, but often there are more rudimentary considerations - what do I have to do to move my application to a cloud form - [is it a good fit?] [7]  Assuming the application can be made [cloud ready] [8], another wave of questions about the new target model arises:
+Business model and heritage affect the consideration of to make best use of Web scale infrastructure (frequently) sourced from CWS ISVs who have different business models, deployment heritages and organizational priorities.  An ISV with only on-premise or hosted deployments has more to think through, including figuring out which public Cloud services to leverage (or not) or what component technologies to use, but often there are more rudimentary considerations - what do I have to do to move my application to a cloud form - [is it a good fit?] [7]  Assuming the application can be made [cloud ready] [8], another wave of questions about the new target model arises:
 
 * How does my organization need to change?
-* What kinds of skills do we need?
+* What kinds of skills will more organization need?
 * What delineation of responsibilities is needed and how to coordinate between them?
 * *How deep to these changes need to be?*
 
 That last question is contextual, i.e. it depends on the ISV's organization and business situation, but it is the more revealing question. It asks at what level will we need to re-optimize? Will changes be to individuals, teams, groups, or the full organization?  Is the organization's whole mission changing or just some objectives or goals?
 
-Let's take an example based of an ISV who deploys their product in a hosting facility. The development and QA teams employ an agile approach process to build the product and vet it is ready for production.  It is then handed off to be deployed in production where access is limited to the IT Operations team. There are release notes, and some scripts provided as well. Assuming development followed good continuous delivery principles with code binaries separated from configuration, configurations well managed under source control, etc., there still remains significant coordination challenges in this hand-off. There are multiple disciplines required to make successful deployment from a customers perspective. Development and IT Operations have different expertise and priorities, the way in which they work together is critical to success.
+Let's take an example based of an ISV who deploys their product in a hosting facility. The development and QA teams employ an agile process to build the product and vet it is ready for production.  It is then handed off to be deployed in production where access is limited to the IT Operations team. The product is accompanied by release notes and some scripts used by development for staging deployment. Assuming development followed good continuous delivery principles with code binaries separated from configuration, configurations well managed under source control, etc., there still remains coordination challenges needing to be addressed.
+
+There are multiple disciplines required to make a successful deployment from a customer's perspective - that is a healthy deployment with no downtime. Development and IT Operations have different expertise and priorities, the way in which they work together is critical to success.
 
 * Does the operations team have to reverse engineer the product to make it run in the production environment?
 * How good a facsimile of production is production-staging environment?
 * How does development gain insight into the work of operations and vise versa?
-* What is the criteria used to decide what deployment packaging to use?
-* Is there a way to better project operational realities upstream into development?
+* Who provided the criteria used to decide what deployment packaging to use? Development? QA? Operation?
+* Is there a way to better project operational constraints and realities upstream into development?
+* Is there a better way to project the dynamics of product change downstream into operations?
 
 As the B2B ISVs takes on more operational responsibilities, the multiple disciplines challenge arises regardless of deployment model. Whether hosted, on-premise or cloud, the manner in which teams work together in meeting those operational responsibilities is critical.
 
-### Interdisciplinary Perspective
+### Rethinking from an Interdisciplinary Perspective
 
 Accommodating  operational expense and risk on behalf of your customers will  have an impact on the ISV's mission and business model.  As the business model is affected, the impact is felt widely - marketing, sales, engineering and services all need adjustments. And those groups may have to work together in unprecedented ways.  The key intersection of groups to  leverage Web-scale infrastructure in the business model transition is that of engineering, QA and operations. This is the arena of [DevOps] [14]. Engineering and QA had already been transforming with agile practices.  DevOps extends that transformation to include operations. Optimally those three groups are able to work together as an interdisciplinary team combining their different kinds of expertise to set new goals, establish new metrics and refine new practices.
 
@@ -79,7 +82,7 @@ Large, messy, complex endeavors such as in [healthcare] [15] or [military missio
 
 These guidelines do not suggest a set of experts operating independently.  Rather they suggest group of individuals working together under shared values so they can work interdependently in an effective way. The individuals in this group work to have a broader perspective than their own expertise. To this end, they need a way to explore and experience the work their teammates do.
 
-### Transitioning
+### Building Blocks for the Transition
 
 In addition to the need for interdisciplinary teamwork in DevOps, there is also a need for clean coordination and clear contracts between the groups. At the software packaging level, [containers] [17] such as [Docker] [16] can serve as such a contract between groups. For those unfamiliar, a container can be thought of as a light weight virtual machine that has a much smaller footprint and initiates much faster. The trade-off is that the container cannot host a guest operating system. All containers on a host use the host's operating system. In practice for the CWS ISVs, the container trade-off relative to virtual machines has been an effective one. Containers have become a primary building block of Web-scale infrastructure. The adoption rate for containers is picking up more broadly, Docker in particular.  
 
@@ -117,17 +120,21 @@ And beyond container's packaging capabilities is the ability to manage clusters 
 * support for introspection and debugging, and
 * identity and authorization.
 
-Kubernetes builds on top of containers such as Docker and was designed to address issues that arise most dramatically at Web-scale level deployments - issues such as server and component failure.  At Web-scale, such failures are a daily event.  CWS ISVs had to tackle recovery and resilience issues head on and so built in redundancy and health-check mechanisms into their cluster management. They also had to deal with large scale, new version application rollouts and the need to be able to rollback with no downtime in the event something went wrong.  B2B ISVs would benefit from these capabilities even though they are not operating at Web-scale.
+Kubernetes builds on top of containers such as Docker and was designed to address issues that arise most dramatically at Web-scale level deployments - issues such as server and component failure.  At Web-scale, such failures are a daily event.  CWS ISVs had to tackle recovery and resilience issues head on and so built in redundancy and health-check mechanisms into their cluster management. They also had to deal with large scale, new version application rollouts and the need to be able to rollback with no downtime in the event something went wrong.  However, B2B ISVs would benefit from these capabilities even though they are not operating at Web-scale.
 
-Combining these technologies with [Immutable Infrastructure] [18] practices, which extend [Continuous Delivery] [19] principles, presents to B2B ISVs the opportunity to have a more robust and reliable experience both for their teams internally and for their customers. Key to this combination of technology and practice is having the safety net to rollback system upgrades rapidly and reliably without having to take the system down.  A change in delivery paradigm is required to gain this benefit. The technology is an enabler, achieving the benefit is up to the DevOps team.
+Combining these technologies with [Immutable Infrastructure] [18] practices, which extend [Continuous Delivery] [19] principles, presents to B2B ISVs the opportunity to have a more robust and reliable experience both for their teams internally and for their customers. Key to this combination of technology and practice is having the safety net to rollback system upgrades rapidly and reliably without having to take the system down.  A change in delivery mind-set is required to gain this benefit. The technology is an enabler, achieving the benefit is up to the DevOps team.
 
-A further benefit of adopting containers for the B2B ISV is the ability to assimilate new technologies as they become available.  Many new technologies that may be relevant to the B2B ISV are now delivered in container form, e.g. machine learning, NLP, big data, blockchain, etc. These technologies are often constructed as multiple services needing to work together.  Orchestrated containers are a very good form factor for such delivery. Competence in this kind of packaging increases the organizations ability to explore and absorb new technologies that can extend the B2B ISV's value proposition.
+A further benefit of adopting containers for the B2B ISV is the ability to more rapidly assimilate new technologies as they become available.  Many new technologies that may be relevant to the B2B ISV are now delivered in container form, e.g. machine learning, NLP, big data, blockchain, etc. These technologies are often constructed as multiple services needing to work together.  Orchestrated containers are a very good form factor for such delivery. Competence in this kind of packaging increases the organizations ability to explore and absorb new technologies that can extend the B2B ISV's value proposition.
 
-But the price is having members of the DevOps team gain experience with these capabilities.  The team has to be provided the *adaptive capacity*, to borrow from Cadieux's phrasing, to explore how to exploit the technologies to the benefit of the B2B ISV. DevOps practitioners are accustom to working through the hard realities of system change, deployment and management.  This requires hands-on experience. They are well versed in this familiar maxim:
 
-*In theory there is no difference between practice and theory, in practice there is.*
 
-There are many excellent "how to" articles on working with containers and cluster managers. But most DevOps practitioners have constraints on the time-slice they can allocate to experimentation.  Replicating the articles' recipes typically require setup time. And multiple articles require multiple setups.  The demand of setup time is especially true in the Windows environment as many of these tools have a Unix, if not more specifically Linux, orientation. If different team members explore different "how-to" articles, this can introduce redundant setup effort as well as having conclusions drawn from different baselines.  Ideally a replicable, scaled-down version of the technologies, in a effect a lab, where the tools are available, live and ready to work together would help enable useful experiments to happen.
+**In theory there is no difference between practice and theory, in practice there is.**
+
+But the price is the investment of having members of the interdisciplinary DevOps team gain experience with these Infrastructure building blocks.  The team has to be provided the *adaptive capacity*, to borrow from Cadieux's phrasing, to explore how to exploit the technologies to the benefit of the B2B ISV. Hands-on experience is needed to work through the hard realities of making system change, deployment and management a predictable, efficient and largely automate process.
+
+There are many excellent "how to" articles on working with containers and cluster managers. But most DevOps practitioners have constraints on the time-slice they can allocate to experimentation.  Replicating the articles' recipes typically require setup time. And multiple articles require multiple setups.  The demand of setup time is especially true in the Windows environment as many of these tools have a Unix, if not more specifically Linux, orientation. If different team members explore different "how-to" articles, this can introduce redundant setup effort as well as having conclusions drawn from different baselines.  
+
+Ideally a replicable, scaled-down version of the technologies, in a effect a lab, where the tools are available, live and ready to work together would help enable useful experiments to happen.
 
 Laminar Lab provides a replicable, scaled down version of these kinds of technologies.  It is open source, downloadable from Github, easy to try out, and repeatable. A link to an overview is available below.  A lab addresses only one factor in the many needed to manage through the evolution of the B2B ISV model, but its simplicity eases exploration and experimentation and hopefully accelerates the learning needed to build out new practices for the DevOps factor.
 
