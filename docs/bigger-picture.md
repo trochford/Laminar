@@ -14,7 +14,7 @@ Mid scale B2B ISVs with smaller user bases may not be able to justify the creati
 
 3. And prioritizing its benefits in the context of business needs that differ from Web scale ISVs.
 
-A low overhead, fast path to getting hands-on experience with these infrastructure building blocks can help technology teams meet those challenges. Rapid experimentation in packaging and deploying the ISV's software builds insight and confidence in targeting its best use for their organization and what new team practices will be needed. 
+A low overhead, fast path to getting hands-on experience with these infrastructure building blocks can help technology teams meet those challenges. Rapid experimentation into new ways of packaging, deploying and managing the ISV's software builds grounded confidence and insight into what new team practices will be needed. 
 
 ![Market breakdown by User Scale and Business Model](images/markets.png)
 
